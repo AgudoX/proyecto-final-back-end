@@ -1,8 +1,9 @@
-
 # Usuarios
 
 ###
 GET http://localhost:3000/api/users
+###
+DELETE http://localhost:3000/api/users/7
 
 
 
@@ -10,9 +11,13 @@ GET http://localhost:3000/api/users
 
 ###
 GET http://localhost:3000/api/teachers
+###
+DELETE http://localhost:3000/api/teachers/5
 
 
 # Asignaturas
 
 ###
 GET http://localhost:3000/api/subjects
+###
+DELETE http://localhost:3000/api/subjects/1

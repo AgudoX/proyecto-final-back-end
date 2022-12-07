@@ -4,7 +4,11 @@ const getAll = () => {
     return db.query('select * from subjects')
 }
 
+const deleteSubjectById = (subjectId) => {
+    return db.query('delete from subjects where id=?', [subjectId])
+}
 
 module.exports = {
-    getAll
+    getAll,
+    deleteSubjectById
 }

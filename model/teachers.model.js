@@ -3,7 +3,12 @@ const getAll = (pType = 'teachers') => {
     return db.query('select * from teacher_app.users where type = ?', [pType])
 }
 
+const deleteTeacherById = (teacherId) => {
+    return db.query('delete from users where type="teacher" and id=?', [teacherId])
+}
+
 
 module.exports = {
-    getAll
+    getAll,
+    deleteTeacherById
 }

@@ -1,6 +1,6 @@
 const router = require('express').Router();
 
-const { getAll } = require('../../model/subjects.model')
+const { getAll, deleteSubjectById } = require('../../model/subjects.model')
 
 router.get('/', async (req, res) => {
     try {
@@ -8,6 +8,16 @@ router.get('/', async (req, res) => {
         res.json(subjects)
     } catch (error) {
         res.json({ espabila: error.message })
+    }
+})
+
+router.delete('/:subjectId', async (req, res) => {
+    try {
+        const { subjectId } = req.params
+        const [response] = await deleteSubjectById(subjectId)
+        res.json(response)
+    } catch (error) {
+        res.json({ fatal: error.message })
     }
 })
 
