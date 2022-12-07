@@ -1,9 +1,15 @@
 const router = require('express').Router();
 
+const { getAll } = require('../../model/teachers.model')
 
-router.get('/', (req, res) => {
+router.get('/', async (req, res) => {
+    try {
+        const [teachers] = await getAll('teacher')
+        res.json(teachers)
+    } catch (error) {
+        res.json({ espabila: error.message })
+    }
 
-    res.send('teachers')
 })
 
 module.exports = router;

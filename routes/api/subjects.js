@@ -4,10 +4,10 @@ const { getAll } = require('../../model/subjects.model')
 
 router.get('/', async (req, res) => {
     try {
-        const [response] = await getAll()
-        res.json(response)
+        const [subjects] = await getAll();
+        res.json(subjects)
     } catch (error) {
-        res.json({ fatal: error.message })
+        res.json({ espabila: error.message })
     }
 })
 
