@@ -8,7 +8,12 @@ const deleteUserById = (userId) => {
     return db.query('delete from users where id=?', [userId])
 };
 
+const create = ({ name, surname, birthdate, email, password, phone, avatar, type }) => {
+    return db.query('insert into users values (null, ? ,? ,? ,? ,? ,? ,? ,? ,null ,null ,null ,null)', [name, surname, birthdate, email, password, phone, avatar, type])
+}
+
 module.exports = {
     getAll,
-    deleteUserById
+    deleteUserById,
+    create
 }

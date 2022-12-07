@@ -7,8 +7,12 @@ const deleteTeacherById = (teacherId) => {
     return db.query('delete from users where type="teacher" and id=?', [teacherId])
 }
 
+const create = ({ name, surname, birthdate, email, password, phone, avatar, type, experience, pricehour, address, active }) => {
+    return db.query('insert into users values (null, ? ,? ,? ,? ,? ,? ,? ,? ,? ,? ,? ,?)', [name, surname, birthdate, email, password, phone, avatar, type, experience, pricehour, address, active])
+}
 
 module.exports = {
     getAll,
-    deleteTeacherById
+    deleteTeacherById,
+    create
 }

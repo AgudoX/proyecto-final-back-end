@@ -1,6 +1,6 @@
 const router = require('express').Router();
 
-const { getAll, deleteTeacherById } = require('../../model/teachers.model')
+const { getAll, deleteTeacherById, create } = require('../../model/teachers.model')
 
 router.get('/', async (req, res) => {
     try {
@@ -20,6 +20,17 @@ router.delete('/:teacherId', async (req, res) => {
     } catch (error) {
         res.json({ fatal: error.message })
     }
+})
+
+router.post('/new', async (req, res) => {
+    try {
+        const [response] = await create(req.body);
+        res.json(response)
+    } catch (error) {
+        res.json({ fatal: error.message })
+
+    }
+
 })
 
 module.exports = router;

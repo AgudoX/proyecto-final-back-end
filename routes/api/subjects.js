@@ -1,6 +1,6 @@
 const router = require('express').Router();
 
-const { getAll, deleteSubjectById } = require('../../model/subjects.model')
+const { getAll, deleteSubjectById, create } = require('../../model/subjects.model')
 
 router.get('/', async (req, res) => {
     try {
@@ -18,6 +18,18 @@ router.delete('/:subjectId', async (req, res) => {
         res.json(response)
     } catch (error) {
         res.json({ fatal: error.message })
+    }
+})
+
+router.post('/new', async (req, res) => {
+
+    try {
+        //Le pasamos el objeto que queremos añadir por el req.body, y lo mete en la base de datos
+        const [subject] = await create(req.body)
+        res.json(subject)
+
+    } catch (error) {
+        res.json({ espabila: error.message })
     }
 })
 

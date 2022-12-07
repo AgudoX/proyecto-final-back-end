@@ -4,15 +4,46 @@
 GET http://localhost:3000/api/users
 ###
 DELETE http://localhost:3000/api/users/7
+###
+POST http://localhost:3000/api/users/new
+Content-Type: application/json
 
+{
+"name": "Albert", 
+"surname": "Einstein", 
+"birthdate":"2000-09-25", 
+"email":"realtivida@gmail.com", 
+"password":"relativo123", 
+"phone":"234234334", 
+"avatar":".", 
+"type": "user"
 
+}
 
 # Profesores
 
 ###
 GET http://localhost:3000/api/teachers
 ###
-DELETE http://localhost:3000/api/teachers/5
+DELETE http://localhost:3000/api/teachers/10
+###
+POST http://localhost:3000/api/teachers/new
+Content-Type: application/json
+
+{
+"name": "Albert", 
+"surname": "Einstein", 
+"birthdate":"2000-09-25", 
+"email":"realtividad@gmail.com", 
+"password":"relativo123", 
+"phone":"234234334", 
+"avatar":".", 
+"type": "teacher", 
+"experience": "Es relativa", 
+"pricehour": 18, 
+"address": "Calle pantomima", 
+"active":1
+}
 
 
 # Asignaturas
@@ -21,3 +52,11 @@ DELETE http://localhost:3000/api/teachers/5
 GET http://localhost:3000/api/subjects
 ###
 DELETE http://localhost:3000/api/subjects/1
+###
+POST http://localhost:3000/api/subjects/new
+Content-Type: application/json
+
+{
+    "name": "matematicas",
+    "level": "ESO"
+}
