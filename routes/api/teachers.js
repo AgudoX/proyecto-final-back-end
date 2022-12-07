@@ -17,7 +17,7 @@ router.delete('/:teacherId', async (req, res) => {
         const { teacherId } = req.params;
         const [response] = await getTeacherById(teacherId)
         await deleteTeacherById(teacherId);
-        res.json(response[0])
+        res.json(response)
         
     } catch (error) {
         res.json({ fatal: error.message })
@@ -38,7 +38,10 @@ router.put('/:teacherId', async (req,res)=>{
 router.post('/new', async (req, res) => {
     try {
         const [response] = await create(req.body);
-        res.json(response)
+        const [teacher] = await getTeacherById(response.insertId)
+        console.log(response)
+        res.json(teacher[0])
+
     } catch (error) {
         res.json({ fatal: error.message })
 

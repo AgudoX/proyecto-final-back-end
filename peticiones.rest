@@ -49,7 +49,7 @@ Content-Type: application/json
 "name": "Albert", 
 "surname": "Einstein", 
 "birthdate":"2000-09-25", 
-"email":"realtividad@gmail.com", 
+"email":"asdasd@gmail.com", 
 "password":"relativo123", 
 "phone":"234234334", 
 "avatar":".", 

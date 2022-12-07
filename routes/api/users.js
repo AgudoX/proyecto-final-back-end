@@ -26,7 +26,8 @@ router.delete('/:userId', async (req, res) => {
 router.post('/new', async (req, res) => {
     try {
         const [response] = await create(req.body)
-        res.json(response)
+        const [user] = await getUserById(response.insertId)
+        res.json(user[0])
     } catch (error) {
         res.json({ fatal: error.message })
     }

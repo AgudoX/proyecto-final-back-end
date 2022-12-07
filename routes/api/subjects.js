@@ -37,8 +37,9 @@ router.post('/new', async (req, res) => {
 
     try {
         //Le pasamos el objeto que queremos añadir por el req.body, y lo mete en la base de datos
-        const [subject] = await create(req.body)
-        res.json(subject)
+        const [response] = await create(req.body)
+        const [subject] = await getSubjectById(response.insertId)
+        res.json(subject[0])
 
     } catch (error) {
         res.json({ espabila: error.message })
