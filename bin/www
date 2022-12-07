@@ -8,6 +8,14 @@ var app = require('../app');
 var debug = require('debug')('proyectofinal:server');
 var http = require('http');
 
+/* Config fichero .env */
+require('dotenv').config()
+
+
+//Config DB MySQL
+require('../config/db')
+
+
 /**
  * Get port from environment and store in Express.
  */
@@ -29,12 +37,7 @@ server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);
 
-/* Config fichero .env */
-require('dotenv').config()
 
-
-//Config DB MySQL
-require('../config/db')
 
 
 /**
