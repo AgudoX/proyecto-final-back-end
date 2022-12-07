@@ -4,6 +4,19 @@
 GET http://localhost:3000/api/users
 ###
 DELETE http://localhost:3000/api/users/7
+###
+PUT http://localhost:3000/api/users/10
+Content-Type: application/json
+
+{
+    "name": "aja",
+    "surname": "aja",
+    "birthdate": "1900-04-03",
+    "email": "aja@gmail.com",
+    "password": "aja",
+    "phone": "858765927",
+    "avatar": ""
+}
 
 
 
@@ -13,6 +26,23 @@ DELETE http://localhost:3000/api/users/7
 GET http://localhost:3000/api/teachers
 ###
 DELETE http://localhost:3000/api/teachers/5
+###
+PUT http://localhost:3000/api/teachers/10
+Content-Type: application/json
+
+{
+    "name": "uwu",
+    "surname": "uwu",
+    "birthdate": "1900-04-03",
+    "email": "uwu@gmail.com",
+    "password": "uwu",
+    "phone": "858765169",
+    "avatar": "",
+    "experience": "no se que hago aqui",
+    "pricehour": 20.00,
+    "address": "valdemoro 33",
+    "acttive": false
+}
 
 
 # Asignaturas
@@ -21,3 +51,11 @@ DELETE http://localhost:3000/api/teachers/5
 GET http://localhost:3000/api/subjects
 ###
 DELETE http://localhost:3000/api/subjects/1
+###
+PUT http://localhost:3000/api/subjects/2
+Content-Type: application/json
+
+{
+    "name": "lengua",
+    "level": "ESO"
+}

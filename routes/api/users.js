@@ -1,6 +1,6 @@
 const router = require('express').Router();
 
-const { getAll, deleteUserById } = require('../../model/users.model')
+const { getAll, deleteUserById, updateUserById, getUserById } = require('../../model/users.model')
 
 router.get('/', async (req, res) => {
     try {
@@ -21,5 +21,16 @@ router.delete('/:userId', async (req, res) => {
         res.json({ fatal: error.message })
     }
 })
+ router.put('/:userId', async (req,res)=>{
+    try {
+        const { userId } = req.params;
+        const [response] = await updateUserById(userId, req.body)
+        console.log(response)
+        const [user]= await getUserById(userId)
+        res.json(user[0])
+    } catch (error) {
+        res.json({ fatal: error.message })
+    }
+}) 
 
 module.exports = router;
