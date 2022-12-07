@@ -15,17 +15,18 @@ router.get('/', async (req, res) => {
 router.delete('/:userId', async (req, res) => {
     try {
         const { userId } = req.params;
-        const [response] = await deleteUserById(userId)
-        res.json(response)
+        const [user]= await getUserById(userId)
+        res.json(user[0])
+        await deleteUserById(userId) 
     } catch (error) {
         res.json({ fatal: error.message })
     }
 })
- router.put('/:userId', async (req,res)=>{
+
+router.put('/:userId', async (req,res)=>{
     try {
         const { userId } = req.params;
-        const [response] = await updateUserById(userId, req.body)
-        console.log(response)
+        await updateUserById(userId, req.body)
         const [user]= await getUserById(userId)
         res.json(user[0])
     } catch (error) {

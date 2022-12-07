@@ -3,6 +3,10 @@ const getAll = (pType = 'teachers') => {
     return db.query('select * from teacher_app.users where type = ?', [pType])
 }
 
+const getTeacherById = (userId) =>{
+    return db.query('select * from users where id=? and type="teacher"',[userId])
+}
+
 const deleteTeacherById = (teacherId) => {
     return db.query('delete from users where type="teacher" and id=?', [teacherId])
 }
@@ -14,6 +18,7 @@ const updateTeacherById = (userId, {name,surname,birthdate,email,password,phone,
 
 module.exports = {
     getAll,
+    getTeacherById,
     deleteTeacherById,
     updateTeacherById
 }

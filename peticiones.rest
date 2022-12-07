@@ -3,9 +3,9 @@
 ###
 GET http://localhost:3000/api/users
 ###
-DELETE http://localhost:3000/api/users/7
+DELETE http://localhost:3000/api/users/11
 ###
-PUT http://localhost:3000/api/users/10
+PUT http://localhost:3000/api/users/11
 Content-Type: application/json
 
 {
@@ -25,9 +25,9 @@ Content-Type: application/json
 ###
 GET http://localhost:3000/api/teachers
 ###
-DELETE http://localhost:3000/api/teachers/5
+DELETE http://localhost:3000/api/teachers/13
 ###
-PUT http://localhost:3000/api/teachers/10
+PUT http://localhost:3000/api/teachers/14
 Content-Type: application/json
 
 {
@@ -50,9 +50,9 @@ Content-Type: application/json
 ###
 GET http://localhost:3000/api/subjects
 ###
-DELETE http://localhost:3000/api/subjects/1
+DELETE http://localhost:3000/api/subjects/2
 ###
-PUT http://localhost:3000/api/subjects/2
+PUT http://localhost:3000/api/subjects/3
 Content-Type: application/json
 
 {

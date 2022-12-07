@@ -1,6 +1,6 @@
 const router = require('express').Router();
 
-const { getAll, deleteSubjectById, updateSubjectById } = require('../../model/subjects.model')
+const { getAll, deleteSubjectById, updateSubjectById, getSubjectById } = require('../../model/subjects.model')
 
 router.get('/', async (req, res) => {
     try {
@@ -14,8 +14,9 @@ router.get('/', async (req, res) => {
 router.delete('/:subjectId', async (req, res) => {
     try {
         const { subjectId } = req.params
-        const [response] = await deleteSubjectById(subjectId)
-        res.json(response)
+        const [response] = await getSubjectById(subjectId)
+        await deleteSubjectById(subjectId)
+        res.json(response[0])
     } catch (error) {
         res.json({ fatal: error.message })
     }
@@ -24,8 +25,9 @@ router.delete('/:subjectId', async (req, res) => {
 router.put('/:subjectId', async (req,res)=>{
     try {
         const { subjectId } = req.params;
-        const [response] = await updateSubjectById(subjectId, req.body)
-        res.json(response)
+        const [response] = await getSubjectById(subjectId)
+        await updateSubjectById(subjectId, req.body)
+        res.json(response[0])
     } catch (error) {
         res.json({ fatal: error.message })
     }

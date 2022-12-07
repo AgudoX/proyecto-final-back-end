@@ -1,6 +1,6 @@
 const router = require('express').Router();
 
-const { getAll, deleteTeacherById, updateTeacherById } = require('../../model/teachers.model')
+const { getAll, deleteTeacherById, updateTeacherById, getTeacherById } = require('../../model/teachers.model')
 
 router.get('/', async (req, res) => {
     try {
@@ -15,18 +15,21 @@ router.get('/', async (req, res) => {
 router.delete('/:teacherId', async (req, res) => {
     try {
         const { teacherId } = req.params;
-        const [response] = await deleteTeacherById(teacherId);
-        res.json(response)
+        const [response] = await getTeacherById(teacherId)
+        await deleteTeacherById(teacherId);
+        res.json(response[0])
+        
     } catch (error) {
         res.json({ fatal: error.message })
     }
 })
 
-router.put('/:userId', async (req,res)=>{
+router.put('/:teacherId', async (req,res)=>{
     try {
-        const { userId } = req.params;
-        const [response] = await updateTeacherById(userId, req.body)
-        res.json(response)
+        const { teacherId } = req.params;
+        await updateTeacherById(teacherId, req.body)
+        const [response] = await getTeacherById(teacherId)
+        res.json(response[0])
     } catch (error) {
         res.json({ fatal: error.message })
     }
