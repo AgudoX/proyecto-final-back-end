@@ -1,11 +1,24 @@
 const router = require('express').Router();
 
-const { getAll, deleteTeacherById, updateTeacherById, getTeacherById, create} = require('../../model/teachers.model')
+const res = require('express/lib/response');
+const { getAll, deleteTeacherById, updateTeacherById, getTeacherById, create, filterByScore } = require('../../model/teachers.model')
 
 router.get('/', async (req, res) => {
     try {
         const [teachers] = await getAll('teacher')
         res.json(teachers)
+    } catch (error) {
+        res.json({ espabila: error.message })
+    }
+
+})
+
+router.get('/score/:min/:max', async (req, res) => {
+
+    const { min, max } = req.params
+    try {
+        const [teachers] = await filterByScore(+min, +max);
+        res.json(teachers[0])
     } catch (error) {
         res.json({ espabila: error.message })
     }
@@ -18,13 +31,13 @@ router.delete('/:teacherId', async (req, res) => {
         const [response] = await getTeacherById(teacherId)
         await deleteTeacherById(teacherId);
         res.json(response)
-        
+
     } catch (error) {
         res.json({ fatal: error.message })
     }
 })
 
-router.put('/:teacherId', async (req,res)=>{
+router.put('/:teacherId', async (req, res) => {
     try {
         const { teacherId } = req.params;
         await updateTeacherById(teacherId, req.body)
