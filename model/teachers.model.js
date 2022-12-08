@@ -21,11 +21,12 @@ const updateTeacherById = (userId, { name, surname, birthdate, email, password, 
     return db.query('update users set name=?, surname=?, birthdate=?, email=?, password=?, phone=?, avatar=?, experience=?, pricehour=?, address=?, active=? where id=? and type="teacher"', [name, surname, birthdate, email, password, phone, avatar, experience, pricehour, address, active, userId])
 }
 
+//Filtros
+
 const filterByScore = (pScoreMin, pScoreMax) => {
-    return db.query('select * from users JOIN user_has_teacher on users.id = user_has_teacher.teacher_id where user_has_teacher.score between ? and ?', [pScoreMin, pScoreMax])
+    return db.query('select * from user_has_teacher join users on user_has_teacher.teacher_id = users.id where score between ? and ? order by score desc;', [pScoreMin, pScoreMax])
 }
 
-//Filtros
 
 const getTeacherByPrice = (min,max)=>{
     return db.query('select* from users where type="teacher" and pricehour between ? and ?', [min,max])
