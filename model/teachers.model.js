@@ -25,6 +25,13 @@ const getTeacherByPrice = (min,max)=>{
     return db.query('select* from users where type="teacher" and pricehour between ? and ?', [min,max])
 }
 
+const getTeacherByPriceAsc = (min,max) => {
+    return db.query('select* from users where type="teacher" and pricehour between ? and ? order by pricehour asc', [+min,+max])
+}
+
+const getTeacherByPriceDesc = (min,max) => {
+    return db.query('select* from users where type="teacher" and pricehour between ? and ? order by pricehour desc', [min,max])
+}
 
 module.exports = {
     getAll,
@@ -32,5 +39,7 @@ module.exports = {
     deleteTeacherById,
     create,
     updateTeacherById,
-    getTeacherByPrice
+    getTeacherByPrice,
+    getTeacherByPriceAsc,
+    getTeacherByPriceDesc
 }
