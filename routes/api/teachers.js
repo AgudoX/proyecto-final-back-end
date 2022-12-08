@@ -1,6 +1,6 @@
 const router = require('express').Router();
 
-const { getAll, deleteTeacherById, updateTeacherById, getTeacherById, create} = require('../../model/teachers.model')
+const { getAll, deleteTeacherById, updateTeacherById, getTeacherById, create, getTeacherByPrice} = require('../../model/teachers.model')
 
 router.get('/', async (req, res) => {
     try {
@@ -9,7 +9,6 @@ router.get('/', async (req, res) => {
     } catch (error) {
         res.json({ espabila: error.message })
     }
-
 })
 
 router.delete('/:teacherId', async (req, res) => {
@@ -48,5 +47,17 @@ router.post('/new', async (req, res) => {
     }
 
 })
+
+// FILTROS
+router.get('/price/:min/:max', async (req, res) => {
+    try {
+        const {min,max} = req.params;
+        const [teachers] = await getTeacherByPrice(min,max);
+        res.json(teachers);
+    } catch (error) {
+        res.json({ espabila: error.message });
+    }
+})
+
 
 module.exports = router;

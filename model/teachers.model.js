@@ -19,11 +19,18 @@ const updateTeacherById = (userId, {name,surname,birthdate,email,password,phone,
     return db.query('update users set name=?, surname=?, birthdate=?, email=?, password=?, phone=?, avatar=?, experience=?, pricehour=?, address=?, active=? where id=? and type="teacher"',[name,surname,birthdate,email,password,phone,avatar,experience,pricehour,address,active,userId])
 }
 
+//Filtros
+
+const getTeacherByPrice = (min,max)=>{
+    return db.query('select* from users where type="teacher" and pricehour between ? and ?', [min,max])
+}
+
 
 module.exports = {
     getAll,
     getTeacherById,
     deleteTeacherById,
     create,
-    updateTeacherById
+    updateTeacherById,
+    getTeacherByPrice
 }
