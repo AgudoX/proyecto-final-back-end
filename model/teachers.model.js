@@ -25,6 +25,19 @@ const filterByScore = (pScoreMin, pScoreMax) => {
     return db.query('select * from users JOIN user_has_teacher on users.id = user_has_teacher.teacher_id where user_has_teacher.score between ? and ?', [pScoreMin, pScoreMax])
 }
 
+//Filtros
+
+const getTeacherByPrice = (min,max)=>{
+    return db.query('select* from users where type="teacher" and pricehour between ? and ?', [min,max])
+}
+
+const getTeacherByPriceAsc = (min,max) => {
+    return db.query('select* from users where type="teacher" and pricehour between ? and ? order by pricehour asc', [+min,+max])
+}
+
+const getTeacherByPriceDesc = (min,max) => {
+    return db.query('select* from users where type="teacher" and pricehour between ? and ? order by pricehour desc', [min,max])
+}
 
 module.exports = {
     getAll,
@@ -32,5 +45,8 @@ module.exports = {
     deleteTeacherById,
     create,
     updateTeacherById,
-    filterByScore
+    filterByScore,
+    getTeacherByPrice,
+    getTeacherByPriceAsc,
+    getTeacherByPriceDesc
 }
