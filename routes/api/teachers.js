@@ -1,6 +1,6 @@
 const router = require('express').Router();
 
-const { getAll, deleteTeacherById, updateTeacherById, getTeacherById, create, getTeacherByPrice, getTeacherByPriceAsc, getTeacherByPriceDesc, filterByScore} = require('../../model/teachers.model')
+const { getAll, deleteTeacherById, updateTeacherById, getTeacherById, create, getTeacherByPrice, getTeacherByPriceAsc, getTeacherByPriceDesc, filterByScore } = require('../../model/teachers.model')
 
 router.get('/', async (req, res) => {
     try {
@@ -14,8 +14,8 @@ router.get('/', async (req, res) => {
 // FILTROS
 router.get('/price/:min/:max', async (req, res) => {
     try {
-        const {min,max} = req.params;
-        const [teachers] = await getTeacherByPrice(min,max);
+        const { min, max } = req.params;
+        const [teachers] = await getTeacherByPrice(min, max);
         res.json(teachers);
     } catch (error) {
         res.json({ espabila: error.message });
@@ -24,8 +24,8 @@ router.get('/price/:min/:max', async (req, res) => {
 
 router.get('/price/asc/:min/:max', async (req, res) => {
     try {
-        const {min,max} = req.params;
-        const [teachers] = await getTeacherByPriceAsc(min,max);
+        const { min, max } = req.params;
+        const [teachers] = await getTeacherByPriceAsc(min, max);
         res.json(teachers);
     } catch (error) {
         res.json({ espabila: error.message });
@@ -34,8 +34,8 @@ router.get('/price/asc/:min/:max', async (req, res) => {
 
 router.get('/price/desc/:min/:max', async (req, res) => {
     try {
-        const {min,max} = req.params;
-        const [teachers] = await getTeacherByPriceDesc(min,max);
+        const { min, max } = req.params;
+        const [teachers] = await getTeacherByPriceDesc(min, max);
         res.json(teachers);
     } catch (error) {
         res.json({ espabila: error.message });
@@ -43,7 +43,7 @@ router.get('/price/desc/:min/:max', async (req, res) => {
 })
 
 router.get('/score/:min/:max', async (req, res) => {
-    
+
     const { min, max } = req.params
     try {
         const [teachers] = await filterByScore(+min, +max);
@@ -51,7 +51,17 @@ router.get('/score/:min/:max', async (req, res) => {
     } catch (error) {
         res.json({ espabila: error.message })
     }
-    
+
+})
+
+router.get('/:teacherId', async (req, res) => {
+    const { teacherId } = req.params
+    try {
+        const [teacher] = await getTeacherById(teacherId);
+        res.json(teacher[0])
+    } catch (error) {
+        res.json({ espabila: error.message })
+    }
 })
 
 router.delete('/:teacherId', async (req, res) => {
