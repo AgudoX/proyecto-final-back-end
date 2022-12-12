@@ -2,11 +2,11 @@ const { query } = require("express")
 
 //Devuelve todos aquellos del tipo indicado en el parámetro, en este caso nos interesa teachers.
 const getAll = () => {
-    return db.query('select group_concat(distinct subjects.name) as subject, round(avg(user_has_teacher.score),1) as media_score, users.* from users join user_has_subjects on user_has_subjects.user_id=users.id join subjects on user_has_subjects.subjects_id = subjects.id join user_has_teacher on user_has_teacher.teacher_id = users.id group by users.id')
+    return db.query('select group_concat(distinct subjects.name) as subject, round(avg(user_has_teacher.score),1) as media_score, users.* from users left join user_has_subjects on user_has_subjects.user_id=users.id left join subjects on user_has_subjects.subjects_id = subjects.id left join user_has_teacher on user_has_teacher.teacher_id = users.id where users.type ="teacher" group by users.id')
 }
 
 const getTeacherById = (userId) => {
-    return db.query('select group_concat(distinct subjects.name) as subject, round(avg(user_has_teacher.score),1) as media_score, users.* from users join user_has_subjects on user_has_subjects.user_id=users.id join subjects on user_has_subjects.subjects_id = subjects.id join user_has_teacher on user_has_teacher.teacher_id = users.id where users.id=? group by users.id', [userId])
+    return db.query('select group_concat(distinct subjects.name) as subject, round(avg(user_has_teacher.score),1) as media_score, users.* from users left join user_has_subjects on user_has_subjects.user_id=users.id left join subjects on user_has_subjects.subjects_id = subjects.id left join user_has_teacher on user_has_teacher.teacher_id = users.id where users.type ="teacher" and users.id=? group by users.id', [userId])
 }
 
 const deleteTeacherById = (teacherId) => {
