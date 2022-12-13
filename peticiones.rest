@@ -91,6 +91,8 @@ GET http://localhost:3000/api/teachers/price/desc/5/15
 GET http://localhost:3000/api/teachers/score/0/10
 ###
 GET http://localhost:3000/api/teachers/3
+###
+GET http://localhost:3000/api/teachers/3/coments
 
 
 # Asignaturas

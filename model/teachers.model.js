@@ -40,6 +40,10 @@ const getTeacherByPriceDesc = (min,max) => {
     return db.query('select* from users where type="teacher" and pricehour between ? and ? order by pricehour desc', [min,max])
 }
 
+const getCommentsByTeacherId = (teacherId) => {
+    return db.query('SELECT  users.name,  user_has_teacher.opinion as opinion FROM teacher_app.user_has_teacher join users on user_has_teacher.user_id = users.id where user_has_teacher.teacher_id =?', [teacherId])
+}
+
 module.exports = {
     getAll,
     getTeacherById,
@@ -49,5 +53,6 @@ module.exports = {
     filterByScore,
     getTeacherByPrice,
     getTeacherByPriceAsc,
-    getTeacherByPriceDesc
+    getTeacherByPriceDesc,
+    getCommentsByTeacherId
 }
