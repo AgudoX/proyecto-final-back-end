@@ -1,6 +1,6 @@
 const router = require('express').Router();
 
-const { getAll, deleteTeacherById, updateTeacherById, getTeacherById, create, getTeacherByPrice, getTeacherByPriceAsc, getTeacherByPriceDesc, filterByScore, getCommentsByTeacherId, orderByScore } = require('../../model/teachers.model')
+const { getAll, deleteTeacherById, updateTeacherById, getTeacherById, create, getTeacherByPrice, getTeacherByPriceAsc, getTeacherByPriceDesc, filterByScore, getCommentsByTeacherId, orderByScore, filterTeachers } = require('../../model/teachers.model')
 
 router.get('/', async (req, res) => {
     try {
@@ -118,6 +118,23 @@ router.post('/new', async (req, res) => {
         res.json({ fatal: error.message })
 
     }
+}
+)
+
+
+router.post('/filter', async (req, res) => {
+    const { score, city, subject, price } = req.body
+    try {
+        console.log(score, city, subject, price)
+        const [response] = await filterTeachers(score, city, subject, price);
+        res.json(response)
+
+    } catch (error) {
+        res.json({ fatal: error.message })
+
+    }
+
+
 
 })
 

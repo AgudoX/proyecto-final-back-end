@@ -62,6 +62,8 @@ Content-Type: application/json
 "address": "Calle pantomima", 
 "active":1
 }
+
+  
 ###
 PUT http://localhost:3000/api/teachers/14
 Content-Type: application/json
@@ -77,10 +79,13 @@ Content-Type: application/json
     "experience": "no se que hago aqui",
     "pricehour": 20.00,
     "address": "valdemoro 33",
-    "acttive": false
+    "active": false
 }
 
+
+
 ### FILTROS
+
 ###
 GET http://localhost:3000/api/teachers/price/5/15
 ###
@@ -95,6 +100,18 @@ GET http://localhost:3000/api/teachers/3
 GET http://localhost:3000/api/teachers/3/coments
 ###
 GET http://localhost:3000/api/teachers/score
+
+###
+POST http://localhost:3000/api/teachers/filter
+Content-Type: application/json
+
+{
+ "score": 1, 
+ "city": "Calle Alcalá 45", 
+ "subject":"Matematicas", 
+ "price":130
+}
+
 
 # Asignaturas
 
