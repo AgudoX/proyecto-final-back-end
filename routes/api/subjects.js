@@ -1,10 +1,19 @@
 const router = require('express').Router();
 
-const { getAll, deleteSubjectById, updateSubjectById, getSubjectById,create } = require('../../model/subjects.model')
+const { getAll, deleteSubjectById, updateSubjectById, getSubjectById, create, getSubjectDistinct } = require('../../model/subjects.model')
 
 router.get('/', async (req, res) => {
     try {
         const [subjects] = await getAll();
+        res.json(subjects)
+    } catch (error) {
+        res.json({ espabila: error.message })
+    }
+})
+
+router.get('/distinct', async (req, res) => {
+    try {
+        const [subjects] = await getSubjectDistinct();
         res.json(subjects)
     } catch (error) {
         res.json({ espabila: error.message })
@@ -22,7 +31,7 @@ router.delete('/:subjectId', async (req, res) => {
     }
 })
 
-router.put('/:subjectId', async (req,res)=>{
+router.put('/:subjectId', async (req, res) => {
     try {
         const { subjectId } = req.params;
         const [response] = await getSubjectById(subjectId)

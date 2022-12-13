@@ -100,6 +100,9 @@ GET http://localhost:3000/api/teachers/3/coments
 ###
 GET http://localhost:3000/api/subjects
 ###
+GET http://localhost:3000/api/subjects/distinct
+
+###
 DELETE http://localhost:3000/api/subjects/1
 ###
 POST http://localhost:3000/api/subjects/new
