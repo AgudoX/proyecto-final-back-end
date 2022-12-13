@@ -24,7 +24,11 @@ const updateTeacherById = (userId, { name, surname, birthdate, email, password, 
 //Filtros
 
 const filterByScore = (pScoreMin, pScoreMax) => {
-    return db.query('select * from user_has_teacher join users on user_has_teacher.teacher_id = users.id where score between ? and ? order by score desc;', [pScoreMin, pScoreMax])
+    return db.query('select * from user_has_teacher join users on user_has_teacher.teacher_id = users.id where score between ? and ? order by score desc', [pScoreMin, pScoreMax])
+}
+
+const orderByScore = () => {
+    return db.query('select group_concat(distinct subjects.name) as subject, round(avg(user_has_teacher.score),1) as media_score, users.* from users left join user_has_subjects on user_has_subjects.user_id=users.id left join subjects on user_has_subjects.subjects_id = subjects.id left join user_has_teacher on user_has_teacher.teacher_id = users.id where users.type ="teacher" and subjects.name is not null group by users.id order by score desc')
 }
 
 
@@ -54,5 +58,6 @@ module.exports = {
     getTeacherByPrice,
     getTeacherByPriceAsc,
     getTeacherByPriceDesc,
-    getCommentsByTeacherId
+    getCommentsByTeacherId,
+    orderByScore
 }
