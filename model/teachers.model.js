@@ -28,7 +28,14 @@ const filterByScore = (pScoreMin, pScoreMax) => {
 }
 
 const orderByScore = () => {
-    return db.query('select group_concat(distinct subjects.name) as subject, round(avg(user_has_teacher.score),1) as media_score, users.* from users left join user_has_subjects on user_has_subjects.user_id=users.id left join subjects on user_has_subjects.subjects_id = subjects.id left join user_has_teacher on user_has_teacher.teacher_id = users.id where users.type ="teacher" and subjects.name is not null group by users.id and users.active=1 order by score desc')
+    return db.query(`select group_concat(distinct subjects.name) as subject, round(avg(user_has_teacher.score),1) as media_score, users.* from users 
+    left join user_has_subjects on user_has_subjects.user_id=users.id
+     left join subjects on user_has_subjects.subjects_id = subjects.id
+     left join user_has_teacher on user_has_teacher.teacher_id = users.id
+    where users.type ="teacher" and users.active= 1 and subjects.name is not null
+    group by users.id 
+    order by score desc
+    `)
 }
 
 
@@ -45,7 +52,7 @@ const getTeacherByPriceDesc = (min, max) => {
 }
 
 const getCommentsByTeacherId = (teacherId) => {
-    return db.query('SELECT  users.name,  user_has_teacher.opinion as opinion FROM teacher_app.user_has_teacher join users on user_has_teacher.user_id = users.id where user_has_teacher.teacher_id =? where users.active=1', [teacherId])
+    return db.query('SELECT  users.name,  user_has_teacher.opinion as opinion FROM teacher_app.user_has_teacher join users on user_has_teacher.user_id = users.id where user_has_teacher.teacher_id =?', [teacherId])
 }
 
 const filterTeachers = (pScore, pCity, pSubject, pPrice) => {
