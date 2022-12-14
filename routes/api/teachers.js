@@ -135,10 +135,9 @@ router.post('/new', async (req, res) => {
 
 
 router.post('/filter', async (req, res) => {
-    const { score, city, subject, price } = req.body
+    const { score, city, subject, price, remote } = req.body
     try {
-        console.log(score, city, subject, price)
-        const [response] = await filterTeachers(score, city, subject, price);
+        const [response] = await filterTeachers(score, city, subject, price, remote);
         res.json(response)
 
     } catch (error) {
