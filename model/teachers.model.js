@@ -13,8 +13,8 @@ const deleteTeacherById = (teacherId) => {
     return db.query('delete from users where type="teacher" and id=?', [teacherId])
 }
 
-const create = ({ name, surname, birthdate, email, password, phone, avatar, type, experience, pricehour, address, active }) => {
-    return db.query('insert into users values (null, ? ,? ,? ,? ,? ,? ,? ,? ,? ,? ,? ,?)', [name, surname, birthdate, email, password, phone, avatar, type, experience, pricehour, address, active])
+const create = ({ name, surname, birthdate, email, password, phone, avatar, type, experience, pricehour, address, active, remote }) => {
+    return db.query('insert into users values (null, ? ,? ,? ,? ,? ,? ,? ,? ,? ,? ,? ,?, ?)', [name, surname, birthdate, email, password, phone, avatar, type, experience, pricehour, address, active, remote])
 }
 
 const updateTeacherById = (userId, { name, surname, birthdate, email, password, phone, avatar, experience, pricehour, address, active }) => {

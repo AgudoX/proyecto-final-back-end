@@ -49,10 +49,10 @@ POST http://localhost:3000/api/teachers/new
 Content-Type: application/json
 
 {
-"name": "Albert", 
-"surname": "Einstein", 
-"birthdate":"2000-09-25", 
-"email":"asdasd@gmail.com", 
+"name": "Justin", 
+"surname": "Bieber", 
+"birthdate":"2040-09-25", 
+"email":"vivaelbeti@gmail.com", 
 "password":"relativo123", 
 "phone":"234234334", 
 "avatar":".", 
@@ -60,7 +60,8 @@ Content-Type: application/json
 "experience": "Es relativa", 
 "pricehour": 18, 
 "address": "Calle pantomima", 
-"active":1
+"active":1,
+"remote": 0
 }
 
   
