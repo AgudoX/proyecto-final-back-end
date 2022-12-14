@@ -7,15 +7,23 @@ POST http://localhost:3000/api/users/new
 Content-Type: application/json
 
 {
-"name": "Albert", 
-"surname": "Einstein", 
+"name": "Juan Carlos", 
+"surname": "Primero", 
 "birthdate":"2000-09-25", 
-"email":"realtivida@gmail.com", 
+"email":"reydeespaña@gmail.com", 
 "password":"relativo123", 
 "phone":"234234334", 
 "avatar":".", 
 "type": "user"
+}
 
+###
+POST http://localhost:3000/api/users/login
+Content-Type: application/json
+
+{
+"email":"reydeespaña@gmail.com", 
+"password":"relativo123"
 }
 
 ###
@@ -130,6 +138,15 @@ Content-Type: application/json
 {
     "name": "matematicas",
     "level": "ESO"
+}
+
+###
+POST http://localhost:3000/api/subjects/teachers
+Content-Type: application/json
+
+{
+"user_email": "juanan@gmail.com", 
+"subject": "Lengua"
 }
 
 ###

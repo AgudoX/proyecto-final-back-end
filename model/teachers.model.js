@@ -1,4 +1,4 @@
-const { query } = require("express")
+
 
 //Devuelve todos aquellos del tipo indicado en el parámetro, en este caso nos interesa teachers.
 const getAll = () => {
@@ -48,6 +48,10 @@ const getCommentsByTeacherId = (teacherId) => {
     return db.query('SELECT  users.name,  user_has_teacher.opinion as opinion FROM teacher_app.user_has_teacher join users on user_has_teacher.user_id = users.id where user_has_teacher.teacher_id =?', [teacherId])
 }
 
+const getTeacherIdByEmail = (email) => {
+    return db.query('select users.id from teacher_app.users where email = ?', [email])
+}
+
 const filterTeachers = (pScore, pCity, pSubject, pPrice) => {
 
     let sql = `select group_concat(distinct subjects.name) as subject, round(avg(user_has_teacher.score),1) as media_score, users.* 
@@ -85,4 +89,5 @@ module.exports = {
     getCommentsByTeacherId,
     orderByScore,
     filterTeachers,
+    getTeacherIdByEmail
 }
