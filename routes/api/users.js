@@ -12,6 +12,17 @@ router.get('/', async (req, res) => {
 
 })
 
+router.get('/:userId', async (req, res) => {
+    try {
+        const { userId } = req.params;
+        console.log(userId)
+        const [user]= await getUserById(userId)
+        res.json(user[0])
+    } catch (error) {
+        res.json({ fatal: error.message })
+    }
+})
+
 router.delete('/:userId', async (req, res) => {
     try {
         const { userId } = req.params;

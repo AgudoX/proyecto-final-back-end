@@ -2,11 +2,11 @@ const { query } = require("express")
 
 //Devuelve todos aquellos del tipo indicado en el parámetro, en este caso nos interesa teachers.
 const getAll = () => {
-    return db.query('select group_concat(distinct subjects.name) as subject, round(avg(user_has_teacher.score),1) as media_score, users.* from users left join user_has_subjects on user_has_subjects.user_id=users.id left join subjects on user_has_subjects.subjects_id = subjects.id left join user_has_teacher on user_has_teacher.teacher_id = users.id where users.type ="teacher" group by users.id')
+    return db.query('select group_concat(distinct subjects.name) as subject, round(avg(user_has_teacher.score),1) as media_score, users.* from users left join user_has_subjects on user_has_subjects.user_id=users.id left join subjects on user_has_subjects.subjects_id = subjects.id left join user_has_teacher on user_has_teacher.teacher_id = users.id where users.type ="teacher" and users.active=1 group by users.id')
 }
 
 const getTeacherById = (userId) => {
-    return db.query('select group_concat(distinct subjects.name) as subject, round(avg(user_has_teacher.score),1) as media_score, users.* from users left join user_has_subjects on user_has_subjects.user_id=users.id left join subjects on user_has_subjects.subjects_id = subjects.id left join user_has_teacher on user_has_teacher.teacher_id = users.id where users.type ="teacher" and users.id=? group by users.id', [userId])
+    return db.query('select group_concat(distinct subjects.name) as subject, round(avg(user_has_teacher.score),1) as media_score, users.* from users left join user_has_subjects on user_has_subjects.user_id=users.id left join subjects on user_has_subjects.subjects_id = subjects.id left join user_has_teacher on user_has_teacher.teacher_id = users.id where users.type ="teacher" and users.id=? and users.active=1 group by users.id', [userId])
 }
 
 const deleteTeacherById = (teacherId) => {
@@ -24,28 +24,28 @@ const updateTeacherById = (userId, { name, surname, birthdate, email, password, 
 //Filtros
 
 const filterByScore = (pScoreMin, pScoreMax) => {
-    return db.query('select * from user_has_teacher join users on user_has_teacher.teacher_id = users.id where score between ? and ? order by score desc', [pScoreMin, pScoreMax])
+    return db.query('select * from user_has_teacher join users on user_has_teacher.teacher_id = users.id where score between ? and ?  and users.active=1 order by score desc', [pScoreMin, pScoreMax])
 }
 
 const orderByScore = () => {
-    return db.query('select group_concat(distinct subjects.name) as subject, round(avg(user_has_teacher.score),1) as media_score, users.* from users left join user_has_subjects on user_has_subjects.user_id=users.id left join subjects on user_has_subjects.subjects_id = subjects.id left join user_has_teacher on user_has_teacher.teacher_id = users.id where users.type ="teacher" and subjects.name is not null group by users.id order by score desc')
+    return db.query('select group_concat(distinct subjects.name) as subject, round(avg(user_has_teacher.score),1) as media_score, users.* from users left join user_has_subjects on user_has_subjects.user_id=users.id left join subjects on user_has_subjects.subjects_id = subjects.id left join user_has_teacher on user_has_teacher.teacher_id = users.id where users.type ="teacher" and subjects.name is not null group by users.id and users.active=1 order by score desc')
 }
 
 
 const getTeacherByPrice = (min, max) => {
-    return db.query('select* from users where type="teacher" and pricehour between ? and ?', [min, max])
+    return db.query('select* from users where type="teacher" and pricehour between ? and ? and users.active=1', [min, max])
 }
 
 const getTeacherByPriceAsc = (min, max) => {
-    return db.query('select* from users where type="teacher" and pricehour between ? and ? order by pricehour asc', [+min, +max])
+    return db.query('select* from users where type="teacher" and pricehour between ? and ? and users.active=1 order by pricehour asc', [+min, +max])
 }
 
 const getTeacherByPriceDesc = (min, max) => {
-    return db.query('select* from users where type="teacher" and pricehour between ? and ? order by pricehour desc', [min, max])
+    return db.query('select* from users where type="teacher" and pricehour between ? and ? and users.active=1 order by pricehour desc', [min, max])
 }
 
 const getCommentsByTeacherId = (teacherId) => {
-    return db.query('SELECT  users.name,  user_has_teacher.opinion as opinion FROM teacher_app.user_has_teacher join users on user_has_teacher.user_id = users.id where user_has_teacher.teacher_id =?', [teacherId])
+    return db.query('SELECT  users.name,  user_has_teacher.opinion as opinion FROM teacher_app.user_has_teacher join users on user_has_teacher.user_id = users.id where user_has_teacher.teacher_id =? where users.active=1', [teacherId])
 }
 
 const filterTeachers = (pScore, pCity, pSubject, pPrice) => {
@@ -54,7 +54,7 @@ const filterTeachers = (pScore, pCity, pSubject, pPrice) => {
     from users left join user_has_subjects on user_has_subjects.user_id=users.id 
     left join subjects on user_has_subjects.subjects_id = subjects.id 
     left join user_has_teacher on user_has_teacher.teacher_id = users.id 
-    where users.type ="teacher" 
+    where users.type ="teacher" and users.active=1
     ${pScore ? 'AND  user_has_teacher.score > ?' : ''}
     ${pCity ? 'AND users.address = ?' : ''}
     ${pPrice ? 'AND users.pricehour <= ?' : ''}
