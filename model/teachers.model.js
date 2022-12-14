@@ -1,4 +1,4 @@
-const { query } = require("express")
+
 
 //Devuelve todos aquellos del tipo indicado en el parámetro, en este caso nos interesa teachers.
 const getAll = () => {
@@ -13,8 +13,8 @@ const deleteTeacherById = (teacherId) => {
     return db.query('delete from users where type="teacher" and id=?', [teacherId])
 }
 
-const create = ({ name, surname, birthdate, email, password, phone, avatar, type, experience, pricehour, address, active }) => {
-    return db.query('insert into users values (null, ? ,? ,? ,? ,? ,? ,? ,? ,? ,? ,? ,?)', [name, surname, birthdate, email, password, phone, avatar, type, experience, pricehour, address, active])
+const create = ({ name, surname, birthdate, email, password, phone, avatar, type, experience, pricehour, address, active, remote }) => {
+    return db.query('insert into users values (null, ? ,? ,? ,? ,? ,? ,? ,? ,? ,? ,? ,?, ?)', [name, surname, birthdate, email, password, phone, avatar, type, experience, pricehour, address, active, remote])
 }
 
 const updateTeacherById = (userId, { name, surname, birthdate, email, password, phone, avatar, experience, pricehour, address, active }) => {
@@ -59,6 +59,10 @@ const getInactiveTeachers = () => {
     return db.query('select group_concat(distinct subjects.name) as subject, round(avg(user_has_teacher.score),1) as media_score, users.* from users left join user_has_subjects on user_has_subjects.user_id=users.id left join subjects on user_has_subjects.subjects_id = subjects.id left join user_has_teacher on user_has_teacher.teacher_id = users.id where users.type ="teacher" and users.active=0 group by users.id')
 }
 
+const getTeacherIdByEmail = (email) => {
+    return db.query('select users.id from teacher_app.users where email = ?', [email])
+}
+
 const filterTeachers = (pScore, pCity, pSubject, pPrice) => {
 
     let sql = `select group_concat(distinct subjects.name) as subject, round(avg(user_has_teacher.score),1) as media_score, users.* 
@@ -97,4 +101,5 @@ module.exports = {
     getInactiveTeachers,
     orderByScore,
     filterTeachers,
+    getTeacherIdByEmail
 }

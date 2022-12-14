@@ -1,6 +1,8 @@
 const router = require('express').Router();
+const bcrypt = require('bcryptjs');
 
 const { getAll, deleteTeacherById, updateTeacherById, getTeacherById, create, getTeacherByPrice, getTeacherByPriceAsc, getTeacherByPriceDesc, filterByScore, getCommentsByTeacherId, orderByScore, filterTeachers, getInactiveTeachers } = require('../../model/teachers.model')
+/* const { getAll, deleteTeacherById, updateTeacherById, getTeacherById, create, getTeacherByPrice, getTeacherByPriceAsc, getTeacherByPriceDesc, filterByScore, getCommentsByTeacherId, orderByScore, filterTeachers } = require('../../model/teachers.model'); */
 
 router.get('/', async (req, res) => {
     try {
@@ -118,6 +120,7 @@ router.put('/:teacherId', async (req, res) => {
 
 router.post('/new', async (req, res) => {
     try {
+        req.body.password = bcrypt.hashSync(req.body.password, 8);
         const [response] = await create(req.body);
         const [teacher] = await getTeacherById(response.insertId)
         console.log(response)
