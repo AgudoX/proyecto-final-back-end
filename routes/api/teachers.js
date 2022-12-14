@@ -1,10 +1,19 @@
 const router = require('express').Router();
 
-const { getAll, deleteTeacherById, updateTeacherById, getTeacherById, create, getTeacherByPrice, getTeacherByPriceAsc, getTeacherByPriceDesc, filterByScore, getCommentsByTeacherId, orderByScore, filterTeachers } = require('../../model/teachers.model')
+const { getAll, deleteTeacherById, updateTeacherById, getTeacherById, create, getTeacherByPrice, getTeacherByPriceAsc, getTeacherByPriceDesc, filterByScore, getCommentsByTeacherId, orderByScore, filterTeachers, getInactiveTeachers } = require('../../model/teachers.model')
 
 router.get('/', async (req, res) => {
     try {
         const [teachers] = await getAll('teacher')
+        res.json(teachers)
+    } catch (error) {
+        res.json({ espabila: error.message })
+    }
+})
+
+router.get('/inactive', async (req, res) => {
+    try {
+        const [teachers] = await getInactiveTeachers('teacher')
         res.json(teachers)
     } catch (error) {
         res.json({ espabila: error.message })

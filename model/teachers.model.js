@@ -55,6 +55,10 @@ const getCommentsByTeacherId = (teacherId) => {
     return db.query('SELECT  users.name,  user_has_teacher.opinion as opinion FROM teacher_app.user_has_teacher join users on user_has_teacher.user_id = users.id where user_has_teacher.teacher_id =?', [teacherId])
 }
 
+const getInactiveTeachers = () => {
+    return db.query('select group_concat(distinct subjects.name) as subject, round(avg(user_has_teacher.score),1) as media_score, users.* from users left join user_has_subjects on user_has_subjects.user_id=users.id left join subjects on user_has_subjects.subjects_id = subjects.id left join user_has_teacher on user_has_teacher.teacher_id = users.id where users.type ="teacher" and users.active=0 group by users.id')
+}
+
 const filterTeachers = (pScore, pCity, pSubject, pPrice) => {
 
     let sql = `select group_concat(distinct subjects.name) as subject, round(avg(user_has_teacher.score),1) as media_score, users.* 
@@ -90,6 +94,7 @@ module.exports = {
     getTeacherByPriceAsc,
     getTeacherByPriceDesc,
     getCommentsByTeacherId,
+    getInactiveTeachers,
     orderByScore,
     filterTeachers,
 }
