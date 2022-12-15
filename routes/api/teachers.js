@@ -128,7 +128,7 @@ router.post('/new', upload.single('avatar'), async (req, res) => {
     if (req.file) {
         const extension = '.' + req.file.mimetype.split('/')[1];
         // Obtengo el nombre de la nueva imagen
-        const newName = req.file.originalname + extension;
+        const newName = req.file.filename + extension;
         // Obtengo la ruta donde estará, adjuntándole la extensión
         const newPath = req.file.path + extension;
         // Muevo la imagen para que resiba la extensión
