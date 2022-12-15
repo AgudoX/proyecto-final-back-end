@@ -1,6 +1,10 @@
 const router = require('express').Router();
 const bcrypt = require('bcryptjs');
 const { createToken } = require('../../helpers/create-token');
+const multer = require('multer')
+//Indicamos en que ruta queremos colocar las imágenes, normalmente en public/images
+const upload = multer({ dest: 'public/images' });
+const fs = require('fs');
 
 const { getAll, deleteUserById, updateUserById, getUserById, create, getByEmail } = require('../../model/users.model')
 
@@ -29,7 +33,7 @@ router.get('/:userId', async (req, res) => {
     try {
         const { userId } = req.params;
         console.log(userId)
-        const [user]= await getUserById(userId)
+        const [user] = await getUserById(userId)
         res.json(user[0])
     } catch (error) {
         res.json({ fatal: error.message })
@@ -47,7 +51,21 @@ router.delete('/:userId', async (req, res) => {
     }
 })
 
-router.post('/new', async (req, res) => {
+router.post('/new', upload.single('avatar'), async (req, res) => {
+    /* multer */
+    if (req.file) {
+        const extension = '.' + req.file.mimetype.split('/')[1];
+        // Obtengo el nombre de la nueva imagen
+        const newName = req.file.filename + extension;
+        // Obtengo la ruta donde estará, adjuntándole la extensión
+        const newPath = req.file.path + extension;
+        // Muevo la imagen para que resiba la extensión
+        fs.renameSync(req.file.path, newPath);
+        req.body.avatar = newName;
+    }
+
+    console.log(req.file)
+    console.log(req.body)
     try {
         req.body.password = bcrypt.hashSync(req.body.password, 8);
         const [response] = await create(req.body)
