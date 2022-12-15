@@ -3,6 +3,8 @@
 ###
 GET http://localhost:3000/api/users
 ###
+GET http://localhost:3000/api/users/email/pepito145@gmail.com
+###
 GET http://localhost:3000/api/users/5
 ###
 POST http://localhost:3000/api/users/new
@@ -49,6 +51,8 @@ Content-Type: application/json
 
 ###
 GET http://localhost:3000/api/teachers
+###
+GET http://localhost:3000/api/teachers/email/marmario.giron@gmail.com
 ###
 GET http://localhost:3000/api/teachers/inactive
 ###

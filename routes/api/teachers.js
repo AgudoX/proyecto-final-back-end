@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const bcrypt = require('bcryptjs');
 
-const { getAll, deleteTeacherById, updateTeacherById, getTeacherById, create, getTeacherByPrice, getTeacherByPriceAsc, getTeacherByPriceDesc, filterByScore, getCommentsByTeacherId, orderByScore, filterTeachers, getInactiveTeachers } = require('../../model/teachers.model')
+const { getAll, deleteTeacherById, updateTeacherById, getTeacherById, create, getTeacherByPrice, getTeacherByPriceAsc, getTeacherByPriceDesc, filterByScore, getCommentsByTeacherId, orderByScore, filterTeachers, getInactiveTeachers, getTeacherByEmail } = require('../../model/teachers.model')
 /* const { getAll, deleteTeacherById, updateTeacherById, getTeacherById, create, getTeacherByPrice, getTeacherByPriceAsc, getTeacherByPriceDesc, filterByScore, getCommentsByTeacherId, orderByScore, filterTeachers } = require('../../model/teachers.model'); */
 
 router.get('/', async (req, res) => {
@@ -92,6 +92,17 @@ router.get('/:teacherId/coments', async (req, res) => {
     } catch (error) {
         res.json({ espabila: error.message })
     }
+})
+
+router.get('/email/:email', async (req, res) => {
+    const { email } = req.params;
+    try {
+        const [users] = await getTeacherByEmail(email)
+        res.json(users)
+    } catch (error) {
+        res.json({ espabila: error.message })
+    }
+    
 })
 
 

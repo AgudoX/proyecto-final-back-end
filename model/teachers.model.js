@@ -59,8 +59,8 @@ const getInactiveTeachers = () => {
     return db.query('select group_concat(distinct subjects.name) as subject, round(avg(user_has_teacher.score),1) as media_score, users.* from users left join user_has_subjects on user_has_subjects.user_id=users.id left join subjects on user_has_subjects.subjects_id = subjects.id left join user_has_teacher on user_has_teacher.teacher_id = users.id where users.type ="teacher" and users.active=0 group by users.id')
 }
 
-const getTeacherIdByEmail = (email) => {
-    return db.query('select users.id from teacher_app.users where email = ?', [email])
+const getTeacherByEmail = (email) => {
+    return db.query('select * from users where email = ? and users.type="teacher" and users.active=1', [email])
 }
 
 const filterTeachers = (pScore, pCity, pSubject, pPrice) => {
@@ -101,5 +101,5 @@ module.exports = {
     getInactiveTeachers,
     orderByScore,
     filterTeachers,
-    getTeacherIdByEmail
+    getTeacherByEmail
 }

@@ -14,6 +14,17 @@ router.get('/', async (req, res) => {
 
 })
 
+router.get('/email/:email', async (req, res) => {
+    try {
+        const { email } = req.params;
+        const [users] = await getByEmail(email)
+        res.json(users)
+    } catch (error) {
+        res.json({ espabila: error.message })
+    }
+
+})
+
 router.get('/:userId', async (req, res) => {
     try {
         const { userId } = req.params;
