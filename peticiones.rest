@@ -73,7 +73,7 @@ Content-Type: application/json
 "name": "Justin", 
 "surname": "Bieber", 
 "birthdate":"2040-09-25", 
-"email":"vivaelsevilla@gmail.com", 
+"email":"vivaelsisa@gmail.com", 
 "password":"relativo123", 
 "phone":"234234334", 
 "avatar":".", 
@@ -82,12 +82,14 @@ Content-Type: application/json
 "pricehour": 18, 
 "address": "Calle pantomima", 
 "active":1,
-"remote": 0
+"remote": 0,
+"lat": 34.344543,
+"long": 7.62367
 }
 
   
 ###
-PUT http://localhost:3000/api/teachers/14
+PUT http://localhost:3000/api/teachers/71
 Content-Type: application/json
 
 {

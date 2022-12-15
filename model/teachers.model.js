@@ -13,8 +13,8 @@ const deleteTeacherById = (teacherId) => {
     return db.query('delete from users where type="teacher" and id=?', [teacherId])
 }
 
-const create = ({ name, surname, birthdate, email, password, phone, avatar, type, experience, pricehour, address, active, remote }) => {
-    return db.query('insert into users values (null, ? ,? ,? ,? ,? ,? ,? ,? ,? ,? ,? ,?, ?)', [name, surname, birthdate, email, password, phone, avatar, type, experience, pricehour, address, active, remote])
+const create = ({ name, surname, birthdate, email, password, phone, avatar, type, experience, pricehour, address, active, remote, lat, long }) => {
+    return db.query('insert into users values (null, ? ,? ,? ,? ,? ,? ,? ,? ,? ,? ,? ,?, ?, ?, ?)', [name, surname, birthdate, email, password, phone, avatar, type, experience, pricehour, address, active, remote, lat, long])
 }
 
 const updateTeacherById = (userId, { name, surname, birthdate, email, password, phone, avatar, experience, pricehour, address, active }) => {
@@ -71,7 +71,7 @@ const filterTeachers = (pScore, pCity, pSubject, pPrice, pRemote) => {
     left join user_has_teacher on user_has_teacher.teacher_id = users.id 
     where users.type ="teacher" and users.active=1
     ${pScore ? 'AND  user_has_teacher.score > ?' : ''}
-    ${pCity ? 'AND users.address = ?' : ''}
+    ${pCity ? 'AND users.address LIKE ?' : ''}
     ${pPrice ? 'AND users.pricehour <= ?' : ''}
     ${pSubject ? 'AND subjects.name = ?' : ''}
     ${pRemote ? 'AND users.remote = ?' : ''} 

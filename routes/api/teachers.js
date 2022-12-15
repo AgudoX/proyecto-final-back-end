@@ -4,11 +4,13 @@ const multer = require('multer')
 //Indicamos en que ruta queremos colocar las imágenes, normalmente en public/images
 const upload = multer({ dest: 'public/images' });
 const fs = require('fs');
+const NodeGeocoder = require('node-geocoder');
 
 const { getAll, deleteTeacherById, updateTeacherById, getTeacherById, create, getTeacherByPrice, getTeacherByPriceAsc, getTeacherByPriceDesc, filterByScore, getCommentsByTeacherId, orderByScore, filterTeachers, getInactiveTeachers, getTeacherByEmail } = require('../../model/teachers.model')
 /* const { getAll, deleteTeacherById, updateTeacherById, getTeacherById, create, getTeacherByPrice, getTeacherByPriceAsc, getTeacherByPriceDesc, filterByScore, getCommentsByTeacherId, orderByScore, filterTeachers } = require('../../model/teachers.model'); */
 
 router.get('/', async (req, res) => {
+
     try {
         const [teachers] = await getAll('teacher')
         res.json(teachers)
@@ -106,7 +108,7 @@ router.get('/email/:email', async (req, res) => {
     } catch (error) {
         res.json({ espabila: error.message })
     }
-    
+
 })
 
 
@@ -134,7 +136,19 @@ router.put('/:teacherId', async (req, res) => {
 })
 
 router.post('/new', upload.single('avatar'), async (req, res) => {
+    const options = {
+        provider: 'google',
 
+        // Optional depending on the providers
+        apiKey: 'AIzaSyBMOcTcAkobrlfKIBOJNz6lDw2R5fJsk_Q', // for Mapquest, OpenCage, Google Premier
+        formatter: null // 'gpx', 'string', ...
+    };
+    const geocoder = NodeGeocoder(options);
+    const response = await geocoder.geocode(req.body.address);
+    req.body.lat = response[0].latitude
+    req.body.long = response[0].longitude
+
+    console.log(req.body)
     /* multer */
     if (req.file) {
         const extension = '.' + req.file.mimetype.split('/')[1];
