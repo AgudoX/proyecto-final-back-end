@@ -138,8 +138,6 @@ router.post('/new', upload.single('avatar'), async (req, res) => {
 
     req.body.remote = (req.body.remote === 'false') ? 0 : 1;
 
-    console.log(req.file)
-    console.log(req.body)
     try {
         req.body.password = bcrypt.hashSync(req.body.password, 8);
         const [response] = await create(req.body);
