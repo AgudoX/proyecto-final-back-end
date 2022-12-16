@@ -10,7 +10,7 @@ Content-Type: application/json
     "email":"pepito145@gmail.com"
 }
 ###
-GET http://localhost:3000/api/users/5
+GET http://localhost:3000/api/users/56
 ###
 POST http://localhost:3000/api/users/new
 Content-Type: application/json
@@ -19,7 +19,7 @@ Content-Type: application/json
 "name": "Juan Carlos", 
 "surname": "Primero", 
 "birthdate":"2000-09-25", 
-"email":"reydeespaña@gmail.com", 
+"email":"reydeespña@gmail.com", 
 "password":"relativo123", 
 "phone":"234234334", 
 "avatar":".", 
