@@ -41,3 +41,19 @@ const checkToken = async (req, res, next) => {
     next(); //Si pasa el checkToken tengo disponible el req.user
 
 }
+
+const hasRole = (rol) => {
+
+    return (req, res, next) => {
+        if (req.user.role === rol) {
+            next()
+        } else {
+            return res.json({ espabila: 'Chaval que no eres admin' })
+        }
+    }
+}
+
+module.exports = {
+    hasRole,
+    checkToken
+}
