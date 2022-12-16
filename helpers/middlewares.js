@@ -1,3 +1,7 @@
+const dayjs = require("dayjs");
+const jwt = require("jsonwebtoken");
+const { getTeacherById } = require("../model/teachers.model");
+const { getUserById, getById } = require("../model/users.model");
 const checkToken = async (req, res, next) => {
     //Comprobamos si el token viene incluido en la cabecera, que se pasa como segundo parámetro de la petición post.
     if (!req.headers.authorization) {
@@ -15,6 +19,7 @@ const checkToken = async (req, res, next) => {
         obj = jwt.verify(token, 'test1234')
         /* return res.json('A disfrutar') */
     } catch (error) {
+        console.log(error)
         //Si el token es incorrecto devuelve el espabila, es importante poner el return siempre que la función continue después del catch para que no pete la app       .
         return res.json({ espabila: 'Token incorrecto' });
     }
@@ -31,7 +36,7 @@ const checkToken = async (req, res, next) => {
     if (dayjs().unix() > obj.exp_at) {
         return res.json({ espabila: 'El token está caducado' })
     };
-
+    console.log(obj)
     //console.log(obj.user_id) Tiene el id del usuario logeado.
     const [user] = await getById(obj.user_id); //Recuperamos el usuario
     console.log(user); // Array con el usuario logeado

@@ -6,7 +6,8 @@ const upload = multer({ dest: 'public/images' });
 const fs = require('fs');
 const NodeGeocoder = require('node-geocoder');
 
-const { getAll, deleteTeacherById, updateTeacherById, getTeacherById, create, getTeacherByPrice, getTeacherByPriceAsc, getTeacherByPriceDesc, filterByScore, getCommentsByTeacherId, orderByScore, filterTeachers, getInactiveTeachers, getTeacherByEmail } = require('../../model/teachers.model')
+const { getAll, deleteTeacherById, updateTeacherById, getTeacherById, create, getTeacherByPrice, getTeacherByPriceAsc, getTeacherByPriceDesc, filterByScore, getCommentsByTeacherId, orderByScore, filterTeachers, getInactiveTeachers, getTeacherByEmail } = require('../../model/teachers.model');
+const { checkToken } = require('../../helpers/middlewares');
 /* const { getAll, deleteTeacherById, updateTeacherById, getTeacherById, create, getTeacherByPrice, getTeacherByPriceAsc, getTeacherByPriceDesc, filterByScore, getCommentsByTeacherId, orderByScore, filterTeachers } = require('../../model/teachers.model'); */
 
 router.get('/', async (req, res) => {
@@ -77,6 +78,10 @@ router.get('/score', async (req, res) => {
     } catch (error) {
         res.json({ espabila: error.message })
     }
+})
+
+router.get('/profile', checkToken, async (req,res) => {
+    res.json(req.user)
 })
 
 router.get('/:teacherId', async (req, res) => {
