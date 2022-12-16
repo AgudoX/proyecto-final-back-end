@@ -6,11 +6,21 @@ const multer = require('multer')
 const upload = multer({ dest: 'public/images' });
 const fs = require('fs');
 
-const { getAll, deleteUserById, updateUserById, getUserById, create, getByEmail } = require('../../model/users.model')
+const { getAll, deleteUserById, updateUserById, getUserById, create, getByEmail, getInactiveUsers } = require('../../model/users.model');
 
 router.get('/', async (req, res) => {
     try {
         const [users] = await getAll('user')
+        res.json(users)
+    } catch (error) {
+        res.json({ espabila: error.message })
+    }
+
+})
+
+router.get('/inactive', async (req, res) => {
+    try {
+        const [users] = await getInactiveUsers()
         res.json(users)
     } catch (error) {
         res.json({ espabila: error.message })
@@ -64,8 +74,6 @@ router.post('/new', upload.single('avatar'), async (req, res) => {
         req.body.avatar = newName;
     }
 
-    console.log(req.file)
-    console.log(req.body)
     try {
         req.body.password = bcrypt.hashSync(req.body.password, 8);
         const [response] = await create(req.body)

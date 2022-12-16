@@ -1,8 +1,11 @@
 
 const getAll = () => {
-    return db.query('select u.id, u.name, u.surname, u.birthdate, u.email, u.password, u.phone, u.avatar, u.type from users as u')
+    return db.query('select u.id, u.name, u.surname, u.birthdate, u.email, u.password, u.phone, u.avatar, u.type from users as u where type = "user" and active = 1')
 }
 
+const getInactiveUsers = () => {
+    return db.query('select u.id, u.name, u.surname, u.birthdate, u.email, u.password, u.phone, u.avatar, u.type from users as u where type = "user" and active = 0 ')
+}
 
 
 const getUserById = (userId) => {
@@ -22,8 +25,8 @@ const deleteUserById = (userId) => {
     return db.query('delete from users where id=? and type="user"', [userId])
 };
 
-const create = ({ name, surname, birthdate, email, password, phone, avatar, type }) => {
-    return db.query('insert into users values (null, ? ,? ,? ,? ,? ,? ,? ,? ,null ,null ,null ,null,null,null,null)', [name, surname, birthdate, email, password, phone, avatar, type])
+const create = ({ name, surname, birthdate, email, password, phone, avatar, type, active }) => {
+    return db.query('insert into users values (null, ? ,? ,? ,? ,? ,? ,? ,? ,null ,null ,null ,?,null,null,null)', [name, surname, birthdate, email, password, phone, avatar, type, active])
 }
 
 const updateUserById = (userId, { name, surname, birthdate, email, password, phone, avatar }) => {
@@ -38,5 +41,6 @@ module.exports = {
     deleteUserById,
     updateUserById,
     getByEmail,
-    getById
+    getById,
+    getInactiveUsers
 }

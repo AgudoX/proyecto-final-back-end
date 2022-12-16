@@ -2,6 +2,10 @@
 
 ###
 GET http://localhost:3000/api/users
+
+###
+GET http://localhost:3000/api/users/inactive
+
 ###
 POST http://localhost:3000/api/users/email
 Content-Type: application/json
@@ -19,11 +23,12 @@ Content-Type: application/json
 "name": "Juan Carlos", 
 "surname": "Primero", 
 "birthdate":"2000-09-25", 
-"email":"reydeespña@gmail.com", 
+"email":"resaspñ@gmail.com", 
 "password":"relativo123", 
 "phone":"234234334", 
 "avatar":".", 
-"type": "user"
+"type": "user",
+"active": 1
 }
 
 ###
