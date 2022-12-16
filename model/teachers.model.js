@@ -63,7 +63,11 @@ const getTeacherByEmail = (email) => {
     return db.query('select * from users where email = ? and users.type="teacher" and users.active=1', [email])
 }
 
-const filterTeachers = (pScore, pCity, pSubject, pPrice, pRemote) => {
+const getTeacherIdByEmail = (email) => {
+    return db.query('select id from users where email = ? and users.type="teacher" and users.active=1', [email])
+}
+
+const filterTeachers = (pScore, pSubject, pPrice, pRemote) => {
 
     let sql = `select group_concat(distinct subjects.name) as subject, round(avg(user_has_teacher.score),1) as media_score, users.* 
     from users left join user_has_subjects on user_has_subjects.user_id=users.id 
@@ -71,7 +75,6 @@ const filterTeachers = (pScore, pCity, pSubject, pPrice, pRemote) => {
     left join user_has_teacher on user_has_teacher.teacher_id = users.id 
     where users.type ="teacher" and users.active=1
     ${pScore ? 'AND  user_has_teacher.score > ?' : ''}
-    ${pCity ? 'AND users.address LIKE ?' : ''}
     ${pPrice ? 'AND users.pricehour <= ?' : ''}
     ${pSubject ? 'AND subjects.name = ?' : ''}
     ${pRemote ? 'AND users.remote = ?' : ''} 
@@ -82,7 +85,6 @@ const filterTeachers = (pScore, pCity, pSubject, pPrice, pRemote) => {
 
     /* Importante el orden en el que se haga el push ya que sino donde está pSubject puede aparecer pPrice.... Por ello el orden de los push tiene que ser igual al orden en el que aparecen en la query sql */
     if (pScore) paramsArr.push(pScore);
-    if (pCity) paramsArr.push(pCity);
     if (pPrice) paramsArr.push(pPrice);
     if (pSubject) paramsArr.push(pSubject);
     if (pRemote) paramsArr.push(pRemote);
@@ -104,5 +106,6 @@ module.exports = {
     getInactiveTeachers,
     orderByScore,
     filterTeachers,
-    getTeacherByEmail
+    getTeacherByEmail,
+    getTeacherIdByEmail
 }

@@ -179,9 +179,9 @@ router.post('/new', upload.single('avatar'), async (req, res) => {
 
 
 router.post('/filter', async (req, res) => {
-    const { score, city, subject, price, remote } = req.body
+    const { score, subject, price, remote } = req.body
     try {
-        const [response] = await filterTeachers(score, city, subject, price, remote);
+        const [response] = await filterTeachers(score, subject, price, remote);
         res.json(response)
 
     } catch (error) {

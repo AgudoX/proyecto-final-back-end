@@ -3,6 +3,7 @@ const router = require('express').Router();
 const { getAll, deleteSubjectById, updateSubjectById, getSubjectById, create, getSubjectDistinct, getSubjectByName, createUserHasSubject } = require('../../model/subjects.model');
 const { getTeacherIdByEmail } = require('../../model/teachers.model');
 
+
 router.get('/', async (req, res) => {
     try {
         const [subjects] = await getAll();
@@ -58,7 +59,9 @@ router.post('/new', async (req, res) => {
 
 router.post('/teachers', async (req, res) => {
     try {
+
         const { user_email, subject } = req.body
+        console.log(user_email, subject)
         const [user_id] = await getTeacherIdByEmail(user_email)
         const [subjectId] = await getSubjectByName(subject)
         const [userHasSubject] = await createUserHasSubject(user_id[0].id, subjectId[0].id)
