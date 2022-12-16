@@ -100,6 +100,7 @@ router.post('/login', async (req, res) => {
         res.json({
             success: 'Enhorabuena',
             token: createToken(user),
+            type: user.type
         });
     } catch (error) {
         res.json({ fatal: 'El email o la contraseña no existen' })
