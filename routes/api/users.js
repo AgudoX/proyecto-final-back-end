@@ -6,7 +6,7 @@ const multer = require('multer')
 const upload = multer({ dest: 'public/images' });
 const fs = require('fs');
 
-const { getAll, deleteUserById, updateUserById, getUserById, create, getByEmail, getInactiveUsers } = require('../../model/users.model');
+const { getAll, deleteUserById, updateUserById, getUserById, create, getByEmail, getInactiveUsers, updateActiveById, createOpinion } = require('../../model/users.model');
 
 router.get('/', async (req, res) => {
     try {
@@ -28,16 +28,6 @@ router.get('/inactive', async (req, res) => {
 
 })
 
-router.post('/email', async (req, res) => {
-    try {
-        const { email } = req.body;
-        const [users] = await getByEmail(email)
-        res.json(users[0])
-    } catch (error) {
-        res.json({ espabila: error.message })
-    }
-
-})
 
 router.get('/:userId', async (req, res) => {
     try {
@@ -59,6 +49,17 @@ router.delete('/:userId', async (req, res) => {
     } catch (error) {
         res.json({ fatal: error.message })
     }
+})
+
+router.post('/email', async (req, res) => {
+    try {
+        const { email } = req.body;
+        const [users] = await getByEmail(email)
+        res.json(users[0])
+    } catch (error) {
+        res.json({ espabila: error.message })
+    }
+
 })
 
 router.post('/new', upload.single('avatar'), async (req, res) => {
@@ -112,6 +113,52 @@ router.post('/login', async (req, res) => {
         });
     } catch (error) {
         res.json({ fatal: 'El email o la contraseña no existen' })
+    }
+})
+
+router.post('/activation', async (req, res) => {
+    try {
+        const { id, active } = req.body;
+        const [users] = await updateActiveById(id, active)
+        console.log(users)
+        res.json(users[0])
+    } catch (error) {
+        res.json({ espabila: error.message })
+    }
+
+})
+
+router.put('/opinion', async (req, res) => {
+    try {
+        const { id, opinion, score } = req.body
+        const userOpinion = await createOpinion(id, score, opinion)
+        res.json(userOpinion)
+
+    } catch (error) {
+        res.json({ fatal: error.message })
+    }
+})
+
+router.put('/update/:userId', upload.single('avatar'), async (req, res) => {
+    /* multer */
+    if (req.file) {
+        const extension = '.' + req.file.mimetype.split('/')[1];
+        // Obtengo el nombre de la nueva imagen
+        const newName = req.file.filename + extension;
+        // Obtengo la ruta donde estará, adjuntándole la extensión
+        const newPath = req.file.path + extension;
+        // Muevo la imagen para que resiba la extensión
+        fs.renameSync(req.file.path, newPath);
+        req.body.avatar = newName;
+    }
+
+    try {
+        req.body.password = bcrypt.hashSync(req.body.password, 8);
+        const { userId } = req.params;
+        const userUpdate = await updateUserById(userId, req.body)
+        res.json(userUpdate)
+    } catch (error) {
+        res.json({ fatal: error.message })
     }
 })
 

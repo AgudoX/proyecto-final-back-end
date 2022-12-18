@@ -1,10 +1,10 @@
 
 const getAll = () => {
-    return db.query('select u.id, u.name, u.surname, u.birthdate, u.email, u.password, u.phone, u.avatar, u.type from users as u where type = "user" and active = 1')
+    return db.query('select u.id, u.name, u.surname, u.birthdate, u.email, u.password, u.phone, u.avatar, u.type, u.active from users as u where type = "user" and active = 1')
 }
 
 const getInactiveUsers = () => {
-    return db.query('select u.id, u.name, u.surname, u.birthdate, u.email, u.password, u.phone, u.avatar, u.type from users as u where type = "user" and active = 0 ')
+    return db.query('select u.id, u.name, u.surname, u.birthdate, u.email, u.password, u.phone, u.avatar, u.type, u.active from users as u where type = "user" and active = 0 ')
 }
 
 
@@ -30,7 +30,21 @@ const create = ({ name, surname, birthdate, email, password, phone, avatar, type
 }
 
 const updateUserById = (userId, { name, surname, birthdate, email, password, phone, avatar }) => {
-    return db.query('update users set name=?, surname=?, birthdate=?, email=?, password=?, phone=?, avatar=? where id=? and type="user"', [name, surname, birthdate, email, password, phone, avatar, userId])
+
+    let paramsArr = [name, surname, birthdate, email, password, phone]
+
+    if (avatar) paramsArr.push(avatar);
+    if (userId) paramsArr.push(userId)
+
+    return db.query(`update users set name=?, surname=?, birthdate=?, email=?, password=?, phone=? ${avatar ? ', avatar=?' : ' '} where id=? and type="user"`, paramsArr)
+}
+
+const createOpinion = (pId, pScore, pOpinion) => {
+    return db.query('update user_has_teacher set score = ? , opinion = ? where id = ?', [pScore, pOpinion, pId])
+}
+
+const updateActiveById = (userId, active) => {
+    return db.query('update users set active=? where id=?', [active, userId])
 }
 
 
@@ -42,5 +56,7 @@ module.exports = {
     updateUserById,
     getByEmail,
     getById,
-    getInactiveUsers
+    getInactiveUsers,
+    updateActiveById,
+    createOpinion
 }

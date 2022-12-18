@@ -13,6 +13,16 @@ Content-Type: application/json
 {
     "email":"pepito145@gmail.com"
 }
+
+###
+POST http://localhost:3000/api/users/activation
+Content-Type: application/json
+
+{
+    "id":91,
+    "active": 1
+}
+
 ###
 GET http://localhost:3000/api/users/56
 ###
@@ -54,6 +64,30 @@ Content-Type: application/json
     "password": "aja",
     "phone": "858765927",
     "avatar": ""
+}
+
+###
+PUT http://localhost:3000/api/users/opinion
+Content-Type: application/json
+
+{
+    "id": 4,
+    "opinion": "De los mejores profesores de España actualmente",
+    "score": 8
+}
+
+###
+PUT http://localhost:3000/api/users/update/89
+Content-Type: application/json
+
+{
+"name": "Bienhallado", 
+"surname": "Dominguez", 
+"birthdate":"2000-09-25", 
+"email":"bienhallado@gmail.com", 
+"password":"bienhallado12", 
+"phone":"630018709",
+"avatar": "undefined"
 }
 
 
