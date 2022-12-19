@@ -1,7 +1,6 @@
 const dayjs = require("dayjs");
 const jwt = require("jsonwebtoken");
-const { getTeacherById } = require("../model/teachers.model");
-const { getUserById, getById } = require("../model/users.model");
+const { getById } = require("../model/users.model");
 const checkToken = async (req, res, next) => {
     //Comprobamos si el token viene incluido en la cabecera, que se pasa como segundo parámetro de la petición post.
     if (!req.headers.authorization) {

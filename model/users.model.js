@@ -29,14 +29,14 @@ const create = ({ name, surname, birthdate, email, password, phone, avatar, type
     return db.query('insert into users values (null, ? ,? ,? ,? ,? ,? ,? ,? ,null ,null ,null ,?,null,null,null)', [name, surname, birthdate, email, password, phone, avatar, type, active])
 }
 
-const updateUserById = (userId, { name, surname, birthdate, email, password, phone, avatar }) => {
+const updateUserById = (userId, { name, surname, birthdate, email, phone, avatar }) => {
 
-    let paramsArr = [name, surname, birthdate, email, password, phone]
+    let paramsArr = [name, surname, birthdate, email, phone]
 
     if (avatar) paramsArr.push(avatar);
     if (userId) paramsArr.push(userId)
 
-    return db.query(`update users set name=?, surname=?, birthdate=?, email=?, password=?, phone=? ${avatar ? ', avatar=?' : ' '} where id=? and type="user"`, paramsArr)
+    return db.query(`update users set name=?, surname=?, birthdate=?, email=?, phone=? ${avatar ? ', avatar=?' : ' '} where id=? and type="user"`, paramsArr)
 }
 
 const createOpinion = (pId, pScore, pOpinion) => {

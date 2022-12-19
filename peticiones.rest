@@ -81,11 +81,10 @@ PUT http://localhost:3000/api/users/update/89
 Content-Type: application/json
 
 {
-"name": "Bienhallado", 
+"name": "Bienhallade", 
 "surname": "Dominguez", 
 "birthdate":"2000-09-25", 
 "email":"bienhallado@gmail.com", 
-"password":"bienhallado12", 
 "phone":"630018709",
 "avatar": "undefined"
 }
@@ -97,7 +96,7 @@ Content-Type: application/json
 GET http://localhost:3000/api/teachers
 ###
 GET http://localhost:3000/api/teachers/profile
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo4MCwidXNlcl9yb2xlIjoidGVhY2hlciIsImV4cF9hdCI6MTY3MTI4MjE1MywiaWF0IjoxNjcxMTk1NzUzfQ.dnI0tsGfAFmWXdyl7CKQpEu5yAIhUSa1rbuozrLyydU
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo4MCwidXNlcl9yb2xlIjoiYWRtaW4iLCJleHBfYXQiOjE2NzE1MzA2MDEsImlhdCI6MTY3MTQ0NDIwMX0.G9qGbhwJmZssm7c3B3obYY2ar3xMjCHBu2U_5Cwp_f4
 ###
 GET http://localhost:3000/api/teachers/email/marmario.giron@gmail.com
 ###
