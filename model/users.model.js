@@ -20,6 +20,16 @@ const getByEmail = (pEmail) => {
     return db.query('Select * from users where email = ?', [pEmail])
 }
 
+const getCommentsByStudentId = (studentId) => {
+    return db.query('SELECT  users.name,  user_has_teacher.opinion as opinion FROM teacher_app.user_has_teacher join users on user_has_teacher.user_id = users.id where user_has_teacher.user_id =?', [studentId])
+}
+
+const getUserTeachers = (userId) => {
+    return db.query(`SELECT DISTINCT users.* FROM users
+    join user_has_teacher on user_has_teacher.teacher_id = users.id
+    where user_has_teacher.user_id = ? and status="accepted"`, [userId])
+}
+
 const deleteUserById = (userId) => {
     /* return db.query('delete * from users where id=?',[userId]) */
     return db.query('delete from users where id=? and type="user"', [userId])
@@ -63,5 +73,7 @@ module.exports = {
     getInactiveUsers,
     updateActiveById,
     createOpinion,
-    getUserPending
+    getUserPending,
+    getCommentsByStudentId,
+    getUserTeachers
 }

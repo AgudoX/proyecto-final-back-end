@@ -28,6 +28,8 @@ GET http://localhost:3000/api/users/56
 ###
 GET http://localhost:3000/api/users/14/coments
 ###
+GET http://localhost:3000/api/users/44/teachers
+###
 POST http://localhost:3000/api/users/new
 Content-Type: application/json
 
