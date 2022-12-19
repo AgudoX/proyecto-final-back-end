@@ -65,6 +65,10 @@ const updateActiveById = (userId, active) => {
     return db.query('update users set active=? where id=?', [active, userId])
 }
 
+const createUserTeacher = ({ user_id, teacher_id }) => {
+    return db.query('insert into user_has_teacher values (null, ? ,? ,null ,null, "pending")', [user_id, teacher_id])
+}
+
 
 module.exports = {
     getAll,
@@ -80,5 +84,6 @@ module.exports = {
     getUserPending,
     getCommentsByStudentId,
     getUserTeachers,
-    updateUserStatus
+    updateUserStatus,
+    createUserTeacher
 }

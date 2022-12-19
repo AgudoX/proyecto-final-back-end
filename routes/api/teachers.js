@@ -8,7 +8,7 @@ const NodeGeocoder = require('node-geocoder');
 
 const { getAll, deleteTeacherById, updateTeacherById, getTeacherById, create, getTeacherByPrice, getTeacherByPriceAsc, getTeacherByPriceDesc, filterByScore, getCommentsByTeacherId, orderByScore, filterTeachers, getInactiveTeachers, getTeacherByEmail, getStudentsByTeacher } = require('../../model/teachers.model');
 const { checkToken } = require('../../helpers/middlewares');
-const { getUserPending, getUserById, updateUserStatus } = require('../../model/users.model');
+const { getUserPending, getUserById, updateUserStatus, createUserTeacher } = require('../../model/users.model');
 /* const { getAll, deleteTeacherById, updateTeacherById, getTeacherById, create, getTeacherByPrice, getTeacherByPriceAsc, getTeacherByPriceDesc, filterByScore, getCommentsByTeacherId, orderByScore, filterTeachers } = require('../../model/teachers.model'); */
 
 router.get('/', async (req, res) => {
@@ -227,9 +227,18 @@ router.post('/filter', async (req, res) => {
         res.json({ fatal: error.message })
 
     }
+})
 
 
+router.post('/newstudent', async (req, res) => {
+    try {
+        const [response] = await createUserTeacher(req.body);
+        res.json(response)
 
+    } catch (error) {
+        res.json({ fatal: error.message })
+
+    }
 })
 
 

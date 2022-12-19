@@ -138,6 +138,15 @@ Content-Type: application/json
 "long": 7.62367
 }
 
+###
+POST http://localhost:3000/api/teachers/newstudent
+Content-Type: application/json
+
+{
+    "user_id": 59,
+    "teacher_id": 31
+}
+
   
 ###
 PUT http://localhost:3000/api/teachers/71
