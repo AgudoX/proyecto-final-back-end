@@ -92,6 +92,11 @@ const filterTeachers = (pScore, pSubject, pPrice, pRemote) => {
     return db.query(sql, paramsArr)
 }
 
+getStudentsByTeacher = (teacherId) => {
+    return db.query(`select users.name, users.surname from users join user_has_teacher on user_has_teacher.user_id = users.id
+    where user_has_teacher.user_id = ?`, [teacherId])
+}
+
 module.exports = {
     getAll,
     getTeacherById,
@@ -107,5 +112,6 @@ module.exports = {
     orderByScore,
     filterTeachers,
     getTeacherByEmail,
-    getTeacherIdByEmail
+    getTeacherIdByEmail,
+    getStudentsByTeacher
 }

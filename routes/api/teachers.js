@@ -6,7 +6,7 @@ const upload = multer({ dest: 'public/images' });
 const fs = require('fs');
 const NodeGeocoder = require('node-geocoder');
 
-const { getAll, deleteTeacherById, updateTeacherById, getTeacherById, create, getTeacherByPrice, getTeacherByPriceAsc, getTeacherByPriceDesc, filterByScore, getCommentsByTeacherId, orderByScore, filterTeachers, getInactiveTeachers, getTeacherByEmail } = require('../../model/teachers.model');
+const { getAll, deleteTeacherById, updateTeacherById, getTeacherById, create, getTeacherByPrice, getTeacherByPriceAsc, getTeacherByPriceDesc, filterByScore, getCommentsByTeacherId, orderByScore, filterTeachers, getInactiveTeachers, getTeacherByEmail, getStudentsByTeacher } = require('../../model/teachers.model');
 const { checkToken } = require('../../helpers/middlewares');
 /* const { getAll, deleteTeacherById, updateTeacherById, getTeacherById, create, getTeacherByPrice, getTeacherByPriceAsc, getTeacherByPriceDesc, filterByScore, getCommentsByTeacherId, orderByScore, filterTeachers } = require('../../model/teachers.model'); */
 
@@ -109,6 +109,17 @@ router.get('/email/:email', async (req, res) => {
     const { email } = req.params;
     try {
         const [users] = await getTeacherByEmail(email)
+        res.json(users)
+    } catch (error) {
+        res.json({ espabila: error.message })
+    }
+
+})
+
+router.get('/:teacherId/students', async (req, res) => {
+    const { teacherId } = req.params
+    try {
+        const [users] = await getStudentsByTeacher(teacherId)
         res.json(users)
     } catch (error) {
         res.json({ espabila: error.message })
