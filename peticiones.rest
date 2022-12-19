@@ -99,6 +99,8 @@ GET http://localhost:3000/api/teachers
 GET http://localhost:3000/api/teachers/profile
 Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo4MCwidXNlcl9yb2xlIjoidGVhY2hlciIsImV4cF9hdCI6MTY3MTI4MjE1MywiaWF0IjoxNjcxMTk1NzUzfQ.dnI0tsGfAFmWXdyl7CKQpEu5yAIhUSa1rbuozrLyydU
 ###
+GET http://localhost:3000/api/teachers/3/students
+###
 GET http://localhost:3000/api/teachers/email/marmario.giron@gmail.com
 ###
 GET http://localhost:3000/api/teachers/inactive
