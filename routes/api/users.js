@@ -6,7 +6,7 @@ const multer = require('multer')
 const upload = multer({ dest: 'public/images' });
 const fs = require('fs');
 
-const { getAll, deleteUserById, updateUserById, getUserById, create, getByEmail, getInactiveUsers, updateActiveById, createOpinion, getCommentsByStudentId } = require('../../model/users.model');
+const { getAll, deleteUserById, updateUserById, getUserById, create, getByEmail, getInactiveUsers, updateActiveById, createOpinion, getCommentsByStudentId, getUserTeachers } = require('../../model/users.model');
 const { checkToken } = require('../../helpers/middlewares');
 
 router.get('/', async (req, res) => {
@@ -45,6 +45,16 @@ router.get('/:studentId/coments', async (req, res) => {
     const { studentId } = req.params
     try {
         const [coments] = await getCommentsByStudentId(studentId);
+        res.json(coments)
+    } catch (error) {
+        res.json({ espabila: error.message })
+    }
+})
+
+router.get('/:studentId/teachers', async (req, res) => {
+    const { studentId } = req.params
+    try {
+        const [coments] = await getUserTeachers(studentId);
         res.json(coments)
     } catch (error) {
         res.json({ espabila: error.message })
