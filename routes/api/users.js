@@ -7,6 +7,7 @@ const upload = multer({ dest: 'public/images' });
 const fs = require('fs');
 
 const { getAll, deleteUserById, updateUserById, getUserById, create, getByEmail, getInactiveUsers, updateActiveById, createOpinion } = require('../../model/users.model');
+const { checkToken } = require('../../helpers/middlewares');
 
 router.get('/', async (req, res) => {
     try {
@@ -116,7 +117,7 @@ router.post('/login', async (req, res) => {
     }
 })
 
-router.post('/activation', async (req, res) => {
+router.post('/activation', checkToken, async (req, res) => {
     try {
         const { id, active } = req.body;
         const [users] = await updateActiveById(id, active)
@@ -128,7 +129,7 @@ router.post('/activation', async (req, res) => {
 
 })
 
-router.put('/opinion', async (req, res) => {
+router.put('/opinion', checkToken, async (req, res) => {
     try {
         const { id, opinion, score } = req.body
         const userOpinion = await createOpinion(id, score, opinion)
@@ -153,7 +154,6 @@ router.put('/update/:userId', upload.single('avatar'), async (req, res) => {
     }
 
     try {
-        req.body.password = bcrypt.hashSync(req.body.password, 8);
         const { userId } = req.params;
         const userUpdate = await updateUserById(userId, req.body)
         res.json(userUpdate)

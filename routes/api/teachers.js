@@ -80,7 +80,8 @@ router.get('/score', async (req, res) => {
     }
 })
 
-router.get('/profile', checkToken, async (req,res) => {
+router.get('/profile', checkToken, async (req, res) => {
+
     res.json(req.user)
 })
 
