@@ -157,6 +157,16 @@ Content-Type: application/json
     "active": false
 }
 
+###
+PUT http://localhost:3000/api/teachers/update/status
+Content-Type: application/json
+
+{
+    "status": "denied",
+    "user_id": 30,
+    "teacher_id": 31
+}
+
 
 
 ### FILTROS
