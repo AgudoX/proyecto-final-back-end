@@ -8,7 +8,7 @@ const NodeGeocoder = require('node-geocoder');
 
 const { getAll, deleteTeacherById, updateTeacherById, getTeacherById, create, getTeacherByPrice, getTeacherByPriceAsc, getTeacherByPriceDesc, filterByScore, getCommentsByTeacherId, orderByScore, filterTeachers, getInactiveTeachers, getTeacherByEmail, getStudentsByTeacher } = require('../../model/teachers.model');
 const { checkToken } = require('../../helpers/middlewares');
-const { getUserPending, getUserById } = require('../../model/users.model');
+const { getUserPending, getUserById, updateUserStatus } = require('../../model/users.model');
 /* const { getAll, deleteTeacherById, updateTeacherById, getTeacherById, create, getTeacherByPrice, getTeacherByPriceAsc, getTeacherByPriceDesc, filterByScore, getCommentsByTeacherId, orderByScore, filterTeachers } = require('../../model/teachers.model'); */
 
 router.get('/', async (req, res) => {
@@ -159,6 +159,16 @@ router.put('/:teacherId', async (req, res) => {
         await updateTeacherById(teacherId, req.body)
         const [response] = await getTeacherById(teacherId)
         res.json(response[0])
+    } catch (error) {
+        res.json({ fatal: error.message })
+    }
+})
+
+router.put('/update/status', async (req, res) => {
+    const { status, user_id, teacher_id } = req.body;
+    try {
+        const [user] = await updateUserStatus(status, user_id, teacher_id)
+        res.json(user)
     } catch (error) {
         res.json({ fatal: error.message })
     }

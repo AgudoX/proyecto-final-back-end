@@ -33,6 +33,10 @@ const create = ({ name, surname, birthdate, email, password, phone, avatar, type
     return db.query('insert into users values (null, ? ,? ,? ,? ,? ,? ,? ,? ,null ,null ,null ,?,null,null,null)', [name, surname, birthdate, email, password, phone, avatar, type, active])
 }
 
+const updateUserStatus = (pStatus, pUserId, pTeacherId) => {
+    return db.query(`update user_has_teacher set status = ? where user_id = ? and teacher_id = ?`, [pStatus, pUserId, pTeacherId])
+}
+
 const updateUserById = (userId, { name, surname, birthdate, email, phone, avatar }) => {
 
     let paramsArr = [name, surname, birthdate, email, phone]
@@ -63,5 +67,6 @@ module.exports = {
     getInactiveUsers,
     updateActiveById,
     createOpinion,
-    getUserPending
+    getUserPending,
+    updateUserStatus
 }
