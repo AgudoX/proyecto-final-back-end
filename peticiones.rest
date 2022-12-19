@@ -48,7 +48,7 @@ POST http://localhost:3000/api/users/login
 Content-Type: application/json
 
 {
-"email":"kiko@gmail.com", 
+"email":"pepito@gmail.com", 
 "password":"test1234"
 }
 
@@ -96,6 +96,10 @@ Content-Type: application/json
 
 ###
 GET http://localhost:3000/api/teachers
+
+###
+GET http://localhost:3000/api/teachers/request
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjozMSwidXNlcl9yb2xlIjoidGVhY2hlciIsImV4cF9hdCI6MTY3MTU1MTQzNSwiaWF0IjoxNjcxNDY1MDM1fQ.mOsVW7LgUNXOsA48fyVSoIiwVi4QhgI6tfzhY-rtrRY
 ###
 GET http://localhost:3000/api/teachers/profile
 Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo4MCwidXNlcl9yb2xlIjoiYWRtaW4iLCJleHBfYXQiOjE2NzE1MzA2MDEsImlhdCI6MTY3MTQ0NDIwMX0.G9qGbhwJmZssm7c3B3obYY2ar3xMjCHBu2U_5Cwp_f4

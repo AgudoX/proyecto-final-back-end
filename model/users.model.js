@@ -20,14 +20,14 @@ const getByEmail = (pEmail) => {
     return db.query('Select * from users where email = ?', [pEmail])
 }
 
-const getCommentsByStudentId = (studentId) => {
-    return db.query('SELECT  users.name,  user_has_teacher.opinion as opinion FROM teacher_app.user_has_teacher join users on user_has_teacher.user_id = users.id where user_has_teacher.user_id =?', [studentId])
-}
-
 const deleteUserById = (userId) => {
     /* return db.query('delete * from users where id=?',[userId]) */
     return db.query('delete from users where id=? and type="user"', [userId])
 };
+
+const getUserPending = (teacherId) => {
+    return db.query(`SELECT * FROM teacher_app.user_has_teacher where teacher_id = ? and status = "pending"`, [teacherId])
+}
 
 const create = ({ name, surname, birthdate, email, password, phone, avatar, type, active }) => {
     return db.query('insert into users values (null, ? ,? ,? ,? ,? ,? ,? ,? ,null ,null ,null ,?,null,null,null)', [name, surname, birthdate, email, password, phone, avatar, type, active])
@@ -63,5 +63,5 @@ module.exports = {
     getInactiveUsers,
     updateActiveById,
     createOpinion,
-    getCommentsByStudentId
+    getUserPending
 }

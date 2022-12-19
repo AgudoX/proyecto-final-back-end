@@ -8,6 +8,7 @@ const NodeGeocoder = require('node-geocoder');
 
 const { getAll, deleteTeacherById, updateTeacherById, getTeacherById, create, getTeacherByPrice, getTeacherByPriceAsc, getTeacherByPriceDesc, filterByScore, getCommentsByTeacherId, orderByScore, filterTeachers, getInactiveTeachers, getTeacherByEmail, getStudentsByTeacher } = require('../../model/teachers.model');
 const { checkToken } = require('../../helpers/middlewares');
+const { getUserPending, getUserById } = require('../../model/users.model');
 /* const { getAll, deleteTeacherById, updateTeacherById, getTeacherById, create, getTeacherByPrice, getTeacherByPriceAsc, getTeacherByPriceDesc, filterByScore, getCommentsByTeacherId, orderByScore, filterTeachers } = require('../../model/teachers.model'); */
 
 router.get('/', async (req, res) => {
@@ -83,6 +84,17 @@ router.get('/score', async (req, res) => {
 router.get('/profile', checkToken, async (req, res) => {
 
     res.json(req.user)
+})
+
+router.get('/request', checkToken, async (req, res) => {
+    let arrUser = []
+    const [request] = await getUserPending(req.user.id)
+    for (let requ of request) {
+        const [user] = await getUserById(requ.user_id)
+
+        arrUser.push(user[0])
+    }
+    res.json(arrUser)
 })
 
 router.get('/:teacherId', async (req, res) => {
