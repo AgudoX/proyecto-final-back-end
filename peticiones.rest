@@ -81,7 +81,7 @@ Content-Type: application/json
 }
 
 ###
-PUT http://localhost:3000/api/users/update/89
+PUT http://localhost:3000/api/users/update/45
 Content-Type: application/json
 
 {
@@ -149,21 +149,19 @@ Content-Type: application/json
 
   
 ###
-PUT http://localhost:3000/api/teachers/71
+PUT http://localhost:3000/api/teachers/update/46
 Content-Type: application/json
 
 {
     "name": "uwu",
     "surname": "uwu",
     "birthdate": "1900-04-03",
-    "email": "uwu@gmail.com",
-    "password": "uwu",
+    "email": "javivi123@gmail.com",
     "phone": "858765169",
-    "avatar": "",
+    "avatar": "undefined",
     "experience": "no se que hago aqui",
     "pricehour": 20.00,
-    "address": "valdemoro 33",
-    "active": false
+    "address": "valdemoro 33"
 }
 
 ###

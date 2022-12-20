@@ -153,16 +153,29 @@ router.delete('/:teacherId', async (req, res) => {
     }
 })
 
-router.put('/:teacherId', async (req, res) => {
+router.put('/update/:teacherId', upload.single('avatar'), async (req, res) => {
+    /* multer */
+    if (req.file) {
+        const extension = '.' + req.file.mimetype.split('/')[1];
+        // Obtengo el nombre de la nueva imagen
+        const newName = req.file.filename + extension;
+        // Obtengo la ruta donde estará, adjuntándole la extensión
+        const newPath = req.file.path + extension;
+        // Muevo la imagen para que resiba la extensión
+        fs.renameSync(req.file.path, newPath);
+        req.body.avatar = newName;
+    }
+    
+    
     try {
         const { teacherId } = req.params;
-        await updateTeacherById(teacherId, req.body)
-        const [response] = await getTeacherById(teacherId)
-        res.json(response[0])
+        const teacherUpdate = await updateTeacherById(teacherId, req.body)
+        res.json(teacherUpdate)
     } catch (error) {
         res.json({ fatal: error.message })
     }
 })
+
 
 router.put('/update/status', async (req, res) => {
     const { status, user_id, teacher_id } = req.body;
@@ -201,7 +214,6 @@ router.post('/new', upload.single('avatar'), async (req, res) => {
     }
 
     req.body.remote = (req.body.remote === 'false') ? 0 : 1;
-
     try {
         req.body.password = bcrypt.hashSync(req.body.password, 8);
         const [response] = await create(req.body);
