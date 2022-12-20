@@ -19,6 +19,7 @@ app.use(cors())
 
 
 app.use('/api', require('./routes/api'))
+app.use('/email', require('./routes/email'))
 
 
 module.exports = app;

@@ -151,8 +151,8 @@ router.post('/activation', checkToken, async (req, res) => {
 
 router.put('/opinion', checkToken, async (req, res) => {
     try {
-        const { id, opinion, score } = req.body
-        const userOpinion = await createOpinion(id, score, opinion)
+        const { user_id, teacher_id, opinion, score } = req.body
+        const userOpinion = await createOpinion(user_id, teacher_id, score, opinion)
         res.json(userOpinion)
 
     } catch (error) {
