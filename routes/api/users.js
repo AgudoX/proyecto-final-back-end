@@ -6,7 +6,7 @@ const multer = require('multer')
 const upload = multer({ dest: 'public/images' });
 const fs = require('fs');
 
-const { getAll, deleteUserById, updateUserById, getUserById, create, getByEmail, getInactiveUsers, updateActiveById, createOpinion, getCommentsByStudentId, getUserTeachers } = require('../../model/users.model');
+const { getAll, deleteUserById, updateUserById, getUserById, create, getByEmail, getInactiveUsers, updateActiveById, createOpinion, getCommentsByStudentId, getUserTeachers, getById } = require('../../model/users.model');
 const { checkToken } = require('../../helpers/middlewares');
 
 router.get('/', async (req, res) => {
@@ -35,6 +35,17 @@ router.get('/:userId', async (req, res) => {
         const { userId } = req.params;
         console.log(userId)
         const [user] = await getUserById(userId)
+        res.json(user[0])
+    } catch (error) {
+        res.json({ fatal: error.message })
+    }
+})
+router.get('/usuario/:userId', async (req, res) => {
+
+    try {
+        const { userId } = req.params;
+        console.log(userId)
+        const [user] = await getById(userId)
         res.json(user[0])
     } catch (error) {
         res.json({ fatal: error.message })

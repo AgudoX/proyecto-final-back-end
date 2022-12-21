@@ -25,7 +25,7 @@ const getCommentsByStudentId = (studentId) => {
 }
 
 const getUserTeachers = (userId) => {
-    return db.query(`SELECT DISTINCT users.name, users.surname, users.birthdate, users.email, users.phone, users.pricehour, users.experience, users.avatar FROM users
+    return db.query(`SELECT DISTINCT users.id, users.name, users.surname, users.birthdate, users.email, users.phone, users.pricehour, users.experience, users.avatar FROM users
     join user_has_teacher on user_has_teacher.teacher_id = users.id
     where user_has_teacher.user_id = ? and status="accepted"`, [userId])
 }
@@ -44,6 +44,7 @@ const create = ({ name, surname, birthdate, email, password, phone, avatar, type
 }
 
 const updateUserStatus = (pStatus, pUserId, pTeacherId) => {
+    console.log(pStatus)
     return db.query(`update user_has_teacher set status = ? where user_id = ? and teacher_id = ?`, [pStatus, pUserId, pTeacherId])
 }
 

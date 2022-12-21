@@ -101,7 +101,7 @@ const filterTeachers = (pScore, pSubject, pPrice, pRemote) => {
 }
 
 getStudentsByTeacher = (teacherId) => {
-    return db.query(`select DISTINCT users.name, users.surname, users.birthdate, users.email, users.phone, users.avatar from users join user_has_teacher on user_has_teacher.user_id = users.id
+    return db.query(`select DISTINCT users.id, users.name, users.surname, users.birthdate, users.email, users.phone, users.avatar from users join user_has_teacher on user_has_teacher.user_id = users.id
     where user_has_teacher.teacher_id = ? and user_has_teacher.status="accepted"`, [teacherId])
 }
 

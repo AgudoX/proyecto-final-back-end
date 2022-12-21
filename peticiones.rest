@@ -1,11 +1,3 @@
-###
-POST http://localhost:3000/email
-Content-Type: application/json
-
-{
-    "email":"to@example.com"
-}
-
 # Usuarios
 
 ###
@@ -32,7 +24,10 @@ Content-Type: application/json
 }
 
 ###
-GET http://localhost:3000/api/users/56
+GET http://localhost:3000/api/users/3
+
+###
+GET http://localhost:3000/api/users/usuario/30
 ###
 GET http://localhost:3000/api/users/14/coments
 ###
@@ -83,8 +78,7 @@ PUT http://localhost:3000/api/users/opinion
 Content-Type: application/json
 
 {
-    "user_id": 1,
-    "teacher_id":11,
+    "id": 4,
     "opinion": "De los mejores profesores de España actualmente",
     "score": 8
 }
@@ -110,7 +104,7 @@ GET http://localhost:3000/api/teachers
 
 ###
 GET http://localhost:3000/api/teachers/request
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjozMSwidXNlcl9yb2xlIjoidGVhY2hlciIsImV4cF9hdCI6MTY3MTU1MTQzNSwiaWF0IjoxNjcxNDY1MDM1fQ.mOsVW7LgUNXOsA48fyVSoIiwVi4QhgI6tfzhY-rtrRY
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjozMSwidXNlcl9yb2xlIjoidGVhY2hlciIsImV4cF9hdCI6MTY3MTcwOTgyOSwiaWF0IjoxNjcxNjIzNDI5fQ.lznVUhZygrz_ctwYPh5UeX-vseXopDGG6L0HhxU09fY
 ###
 GET http://localhost:3000/api/teachers/profile
 Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo4MCwidXNlcl9yb2xlIjoiYWRtaW4iLCJleHBfYXQiOjE2NzE1MzA2MDEsImlhdCI6MTY3MTQ0NDIwMX0.G9qGbhwJmZssm7c3B3obYY2ar3xMjCHBu2U_5Cwp_f4
@@ -178,7 +172,7 @@ PUT http://localhost:3000/api/teachers/update/status
 Content-Type: application/json
 
 {
-    "status": "denied",
+    "status": "pending",
     "user_id": 30,
     "teacher_id": 31
 }

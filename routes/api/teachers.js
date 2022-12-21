@@ -8,7 +8,7 @@ const NodeGeocoder = require('node-geocoder');
 
 const { getAll, deleteTeacherById, updateTeacherById, getTeacherById, create, getTeacherByPrice, getTeacherByPriceAsc, getTeacherByPriceDesc, filterByScore, getCommentsByTeacherId, orderByScore, filterTeachers, getInactiveTeachers, getTeacherByEmail, getStudentsByTeacher } = require('../../model/teachers.model');
 const { checkToken } = require('../../helpers/middlewares');
-const { getUserPending, getUserById, updateUserStatus, createUserTeacher } = require('../../model/users.model');
+const { getUserPending, getUserById, updateUserStatus, createUserTeacher, getById } = require('../../model/users.model');
 /* const { getAll, deleteTeacherById, updateTeacherById, getTeacherById, create, getTeacherByPrice, getTeacherByPriceAsc, getTeacherByPriceDesc, filterByScore, getCommentsByTeacherId, orderByScore, filterTeachers } = require('../../model/teachers.model'); */
 
 router.get('/', async (req, res) => {
@@ -90,7 +90,7 @@ router.get('/request', checkToken, async (req, res) => {
     let arrUser = []
     const [request] = await getUserPending(req.user.id)
     for (let requ of request) {
-        const [user] = await getUserById(requ.user_id)
+        const [user] = await getById(requ.user_id)
 
         arrUser.push(user[0])
     }
@@ -153,6 +153,17 @@ router.delete('/:teacherId', async (req, res) => {
     }
 })
 
+
+router.put('/update/status', async (req, res) => {
+    const { status, user_id, teacher_id } = req.body;
+    try {
+        const [user] = await updateUserStatus(status, user_id, teacher_id)
+        res.json(user)
+    } catch (error) {
+        res.json({ fatal: error.message })
+    }
+})
+
 router.put('/update/:teacherId', upload.single('avatar'), async (req, res) => {
     /* multer */
     if (req.file) {
@@ -165,23 +176,12 @@ router.put('/update/:teacherId', upload.single('avatar'), async (req, res) => {
         fs.renameSync(req.file.path, newPath);
         req.body.avatar = newName;
     }
-    
-    
+
+
     try {
         const { teacherId } = req.params;
         const teacherUpdate = await updateTeacherById(teacherId, req.body)
         res.json(teacherUpdate)
-    } catch (error) {
-        res.json({ fatal: error.message })
-    }
-})
-
-
-router.put('/update/status', async (req, res) => {
-    const { status, user_id, teacher_id } = req.body;
-    try {
-        const [user] = await updateUserStatus(status, user_id, teacher_id)
-        res.json(user)
     } catch (error) {
         res.json({ fatal: error.message })
     }

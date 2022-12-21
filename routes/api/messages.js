@@ -6,7 +6,7 @@ router.post('/', async (req, res) => {
     const { user_id, teacher_id } = req.body
     console.log(user_id, teacher_id)
     try {
-        const [messages] = await getMessages(user_id, user_id, teacher_id, teacher_id)
+        const [messages] = await getMessages(user_id, teacher_id, user_id, teacher_id)
         res.json(messages)
     } catch (error) {
         res.json({ espabila: error })
