@@ -21,7 +21,7 @@ const getByEmail = (pEmail) => {
 }
 
 const getCommentsByStudentId = (studentId) => {
-    return db.query('SELECT  users.name,  user_has_teacher.opinion as opinion FROM teacher_app.user_has_teacher join users on user_has_teacher.user_id = users.id where user_has_teacher.user_id =?', [studentId])
+    return db.query('SELECT  users.name,  user_has_teacher.opinion as opinion FROM teacher_app.user_has_teacher join users on user_has_teacher.user_id = users.id where user_has_teacher.user_id =? and opinion is not null', [studentId])
 }
 
 const getUserTeachers = (userId) => {

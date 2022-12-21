@@ -29,7 +29,7 @@ GET http://localhost:3000/api/users/3
 ###
 GET http://localhost:3000/api/users/usuario/30
 ###
-GET http://localhost:3000/api/users/14/coments
+GET http://localhost:3000/api/users/1/coments
 ###
 GET http://localhost:3000/api/users/44/teachers
 ###
@@ -192,7 +192,7 @@ GET http://localhost:3000/api/teachers/score/0/10
 ###
 GET http://localhost:3000/api/teachers/3
 ###
-GET http://localhost:3000/api/teachers/3/coments
+GET http://localhost:3000/api/teachers/31/coments
 ###
 GET http://localhost:3000/api/teachers/score
 

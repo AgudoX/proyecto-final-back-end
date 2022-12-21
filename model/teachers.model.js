@@ -60,7 +60,7 @@ const getTeacherByPriceDesc = (min, max) => {
 }
 
 const getCommentsByTeacherId = (teacherId) => {
-    return db.query('SELECT  users.name,  user_has_teacher.opinion as opinion FROM teacher_app.user_has_teacher join users on user_has_teacher.user_id = users.id where user_has_teacher.teacher_id =?', [teacherId])
+    return db.query('SELECT  users.name,  user_has_teacher.opinion as opinion FROM teacher_app.user_has_teacher join users on user_has_teacher.user_id = users.id where user_has_teacher.teacher_id =? and opinion is not null', [teacherId])
 }
 
 const getInactiveTeachers = () => {
