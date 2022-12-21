@@ -57,8 +57,8 @@ const updateUserById = (userId, { name, surname, birthdate, email, phone, avatar
     return db.query(`update users set name=?, surname=?, birthdate=?, email=?, phone=? ${avatar ? ', avatar=?' : ' '} where id=? and type="user"`, paramsArr)
 }
 
-const createOpinion = (pId, pScore, pOpinion) => {
-    return db.query('update user_has_teacher set score = ? , opinion = ? where id = ?', [pScore, pOpinion, pId])
+const createOpinion = (pUserId, pTeacherId, pScore, pOpinion) => {
+    return db.query('update user_has_teacher set score = ? , opinion = ? where user_id = ? and teacher_id = ?', [pScore, pOpinion, pUserId, pTeacherId])
 }
 
 const updateActiveById = (userId, active) => {
